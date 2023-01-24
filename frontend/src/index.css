@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+/* 
 header {
   background-color: #404040;
   padding: 1rem;
@@ -16,10 +16,13 @@ header a {
   color: #f0f0f0;
   font-weight: bold;
   text-decoration: none;
+} */
+.site-container {
+  min-height: 100vh;
 }
 
 main {
-  padding: 1rem;
+  flex: 1;
 }
 
 .products {
