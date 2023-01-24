@@ -25,10 +25,20 @@ main {
   flex: 1;
 }
 
+.btn-primary {
+  background-color:#4ca549;
+  color: #000000;
+  border: 1px black dashed;
+}
+
 .products {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.rating span {
+  color: #ffc000;
 }
 
 .product {
