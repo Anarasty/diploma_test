@@ -25,7 +25,7 @@ main {
   flex: 1;
 }
 
-.btn-primary {
+.btn-primary, .btn-outline-primary {
   background-color: #4ca549;
   color: #000000;
   border: 1px black dashed;
@@ -74,4 +74,29 @@ main {
 .checkout-steps > div.active {
   border-bottom: 0.2rem solid #f08000;
   color: #f08000;
+}
+
+/*! sidebar */
+.navbar-brand {
+  font-weight: bold;
+}
+.side-navbar {
+  width: 240px;
+  height: 100%;
+  position: absolute;
+  left: -300px;
+  background-color: #000000;
+  transition: 0.3s;
+}
+
+.site-container {
+  transition: 0.3s;
+}
+
+.active-cont {
+  margin-left: 240px;
+}
+
+.active-nav {
+  left: 0;
 }
