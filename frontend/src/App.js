@@ -74,7 +74,7 @@ function App() {
                 <i className="fas fa-bars"></i>
               </Button>
               <LinkContainer to="/">
-                <Navbar.Brand>Amazon1</Navbar.Brand>
+                <Navbar.Brand>EasyShop</Navbar.Brand>
               </LinkContainer>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
@@ -164,7 +164,7 @@ function App() {
           </Container>
         </main>
         <footer>
-          <div className="text-center">All right reserved</div>
+          <div className="text-center">EasyShop 2023 © All right reserved</div>
         </footer>
       </div>
     </BrowserRouter>
