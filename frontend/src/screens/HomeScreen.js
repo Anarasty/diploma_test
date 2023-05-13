@@ -9,6 +9,27 @@ import Product from "../components/Product";
 import { Helmet } from "react-helmet-async";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
+const responsive = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 3000 },
+    items: 1,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 1,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 1,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+  },
+};
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -29,7 +50,6 @@ function HomeScreen() {
     loading: true,
     error: "",
   });
-  //const [products, setProducts] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_REQUEST" });
@@ -39,16 +59,32 @@ function HomeScreen() {
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: err.message });
       }
-      //setProducts(result.data);
     };
     fetchData();
   }, []);
 
   return (
     <div>
-      <Helmet>
-        <title>EasyShop</title>
-      </Helmet>
+      <div className="home-banners">
+        <Carousel className="carousel" responsive={responsive}>
+          <div className="carousel-items">
+            <img src="/images/homebanner1.png"></img>
+          </div>
+          <div className="carousel-items">
+            <img src="/images/homebanner2.png"></img>
+          </div>
+          <div className="carousel-items">
+            <img src="/images/homebanner3.png"></img>
+          </div>
+          <div className="carousel-items">
+            <img src="/images/homebanner4.png"></img>
+          </div>
+          <div className="carousel-items">
+            <img src="/images/homebanner5.png"></img>
+          </div>
+        </Carousel>
+      </div>
+
       <h1>Featured products</h1>
       <div className="products">
         {loading ? (
