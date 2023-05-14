@@ -65,6 +65,11 @@ function HomeScreen() {
 
   return (
     <div>
+      <header className="header-mainpage">
+        <h3 className="header-greetings">WELCOME TO </h3>
+        <h1 className="header-logo">EasyShop</h1>
+        <p className="header-discription">"Create coziness and uniqueness with our handmade products"</p>
+      </header>
       <div className="home-banners">
         <Carousel className="carousel" responsive={responsive}>
           <div className="carousel-items">
