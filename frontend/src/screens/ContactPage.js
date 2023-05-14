@@ -2,37 +2,44 @@ import React from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import emailjs from "@emailjs/browser";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ContactPage = () => {
   const sendEmail = (e) => {
     e.preventDefault();
-    alert("SEND!");
-    emailjs.sendForm("service_0ttl2hu", "template_1d6oi72", e.target, '5K5JYL9KArKvhFouy')
+    // alert("SEND!");
+    toast.success("Message sended!");
+    emailjs.sendForm(
+      "service_0ttl2hu",
+      "template_1d6oi72",
+      e.target,
+      "5K5JYL9KArKvhFouy"
+    );
   };
 
   return (
     <div>
-      <h1>Contact us</h1>
       <div className="contact-box">
         <Row>
-          <h1 className="page__title">Contact Us</h1>
-          <form className="contact__form" onSubmit={sendEmail}>
+          <h1>Contact Us</h1>
+          <ToastContainer position="bottom-center" limit={1} />
+          <form className="contact-form" onSubmit={sendEmail}>
             <label htmlFor="emailFrom">Email:</label>
-            <input
-              type="text"
+            <input required
+              type="email"
               name="email_from"
               id="emailFrom"
-              className="email__from"
-              placeholder="person@example.com"
+              className="email-from"
+              placeholder="email@example.com"
             />
             <label htmlFor="message">Message:</label>
-            <textarea
+            <textarea required
               name="message"
               id="message"
-              className="message__box"
+              className="message-box"
             ></textarea>
-            {/* <input type="submit">Submit</input> */}
-            <input type="submit" value="SnD" />
+            <input type="submit" value="Send" />
           </form>
         </Row>
       </div>

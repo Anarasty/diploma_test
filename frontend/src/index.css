@@ -1,12 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+    sans-serif; */
+  font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+html,
+body {
+  overflow-x: hidden;
+}
 .site-container {
   min-height: 100vh;
 }
@@ -14,8 +20,13 @@ body {
 main {
   flex: 1;
 }
+
+ul li {
+  list-style: none;
+}
 /* test */
-.btn-primary, .btn-outline-primary {
+.btn-primary,
+.btn-outline-primary {
   background-color: #4ca549;
   color: #000000;
   border: 1px black dashed;
@@ -122,6 +133,50 @@ main {
 }
 
 footer {
-  background-color: #afafaf;
-  padding: 4rem 0;
+  margin-top: 20px;
+  background-color: #c9c9c9;
+  padding: 2rem 0;
+}
+
+.social-icons li a {
+  color: black;
+  font-size: 1.5rem;
+}
+
+.contacts {
+  font-size: 1.2rem;
+}
+
+.contacts .message-btn {
+  color: #00a92a;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.contact-box form {
+  /* background-color: #4ca549; */
+  display: flex;
+  flex-direction: column;
+  margin: 50px auto;
+  width: 50%;
+}
+
+.contact-box form label {
+  font-size: 1.5rem;
+  color: black;
+  margin: 10px 0;
+  font-weight: 600;
+}
+
+.contact-box form input, form textarea {
+  font-size: 1.2rem;
+  /* width: 50%; */
+  padding: 15px 10px;
+  border: 1px solid black;
+  outline: none;
+  border-radius: 10px;
+}
+.contact-box form textarea  {
+  resize: none;
+  margin: 0 0 20px;
 }

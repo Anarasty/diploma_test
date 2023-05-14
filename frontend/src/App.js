@@ -4,6 +4,8 @@ import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Badge from "react-bootstrap/Badge";
 import Container from "react-bootstrap/Container";
@@ -167,10 +169,49 @@ function App() {
         </main>
         <footer>
           <div className="text-center">
-            <h1>EasyShop 2023 © All right reserved</h1>
-            <h2>
-              <Link to="/contact">Contact</Link>
-            </h2>
+            <div className="footer-containers">
+              <Row>
+                <Col>
+                  <h3>Contacts</h3>
+                  <ul className="contacts">
+                    <li>
+                    <Link className="message-btn" to="/contact">Message Us</Link>
+                    </li>
+                    <li>
+                    <i className="fa-solid fa-phone"></i> +987 654 321
+                    </li>
+                    <li>
+                    <i className="fa-solid fa-envelope"></i> easy1shop@bussines.com
+                    </li>
+                  </ul>
+                </Col>
+                <Col>
+                  <h3>Social Media</h3>
+                  <ul className="social-icons">
+                    <li>
+                      <a href="#">
+                      <i className="fa-brands fa-facebook"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                      <i className="fa-brands fa-twitter"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                      <i className="fa-brands fa-instagram"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <h5>EasyShop 2023 © All right reserved</h5>
+                </Col>
+              </Row>
+            </div>
           </div>
         </footer>
       </div>
