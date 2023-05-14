@@ -184,7 +184,7 @@ form textarea {
 }
 
 .header-mainpage {
-  background-color: #00a92a;
+  background-color: #000000;
   width: 100%;
   /* height: 25vh; */
   padding: 4rem;
@@ -199,13 +199,38 @@ form textarea {
   font-size: 2rem;
   color: white;
 }
-.header-mainpage .header-logo {
-  font-size: 5rem;
-  font-family: "Charm", cursive;
-  color: white;
-}
+
 .header-mainpage .header-discription {
   font-size: 1.2rem;
   color: white;
   margin: 20px 0;
+}
+
+.header-mainpage .header-logo {
+  margin: 0;
+  font-size: 150px;
+  color: rgba(225, 225, 225, 0.01);
+  background-image: url("https://images.unsplash.com/photo-1614850523503-6e4ef43bee40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  animation: animate 15s ease-in-out infinite;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+@keyframes animate {
+  0%,
+  100% {
+    background-position: left top;
+  }
+  25% {
+    background-position: right bottom;
+  }
+  50% {
+    background-position: left bottom;
+  }
+  75% {
+    background-position: right top;
+  }
 }
