@@ -6,7 +6,7 @@ import logger from "use-reducer-logger";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Product from "../components/Product";
-import { Helmet } from "react-helmet-async";
+// import { Helmet } from "react-helmet-async";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import Carousel from "react-multi-carousel";
@@ -44,7 +44,7 @@ const reducer = (state, action) => {
   }
 };
 
-function HomeScreen() {
+function MainPage() {
   const [{ loading, error, products }, dispatch] = useReducer(logger(reducer), {
     products: [],
     loading: true,
@@ -110,4 +110,4 @@ function HomeScreen() {
   );
 }
 
-export default HomeScreen;
+export default MainPage;

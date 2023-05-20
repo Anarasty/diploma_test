@@ -1,6 +1,6 @@
 // import data from "./data";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-import HomeScreen from "./screens/HomeScreen";
+import MainPage from "./screens/MainPage";
 import ProductScreen from "./screens/ProductScreen";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -163,7 +163,7 @@ function App() {
               ></Route>
               <Route path="/payment" element={<PaymentMethodScreen />}></Route>
               <Route path="/contact" element={<ContactPage />} />
-              <Route path="/" element={<HomeScreen />} />
+              <Route path="/" element={<MainPage />} />
             </Routes>
           </Container>
         </main>
