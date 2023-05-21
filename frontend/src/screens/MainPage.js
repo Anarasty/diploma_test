@@ -1,14 +1,9 @@
 import { useEffect, useReducer, useState } from "react";
 import axios from "axios";
-//import data from "../data";
-import { Link } from "react-router-dom";
 import logger from "use-reducer-logger";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Product from "../components/Product";
-// import { Helmet } from "react-helmet-async";
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
@@ -64,7 +59,7 @@ function MainPage() {
   }, []);
 
   return (
-    <div>
+    <div className="main-page-main-section">
       <header className="header-mainpage">
         <h3 className="header-greetings">WELCOME TO </h3>
         <h1 className="header-logo">EasyShop</h1>
@@ -93,9 +88,9 @@ function MainPage() {
       <h1>Featured products</h1>
       <div className="products">
         {loading ? (
-          <LoadingBox />
+          <h1>Page loading...</h1>
         ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
+          <div className="error-box">{error}</div>
         ) : (
           <Row>
             {products.map((product) => (

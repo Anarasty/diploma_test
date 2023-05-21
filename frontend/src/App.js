@@ -1,7 +1,7 @@
 // import data from "./data";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import MainPage from "./screens/MainPage";
-import ProductScreen from "./screens/ProductScreen";
+import ProductPage from "./screens/ProductPage";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
@@ -12,22 +12,22 @@ import Container from "react-bootstrap/Container";
 import { LinkContainer } from "react-router-bootstrap";
 import { useContext, useEffect, useState } from "react";
 import { Store } from "./Store";
-import CartScreen from "./screens/CartScreen";
-import SigninScreen from "./screens/SigninScreen";
+import CartPage from "./screens/CartPage";
+import LogInPage from "./screens/LogInPage";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ShippingAddressScreen from "./screens/ShippingAddressScreen";
-import SignupScreen from "./screens/SignupScreen";
-import PaymentMethodScreen from "./screens/PaymentMethodScreen";
-import PlaceOrderScreen from "./screens/PlaceOrderScreen";
-import OrderScreen from "./screens/OrderScreen";
-import OrderHistoryScreen from "./screens/OrderHistoryScreen";
-import ProfileScreen from "./screens/ProfileScreen";
+import ShippingPage from "./screens/ShippingPage";
+import RegisterPage from "./screens/RegisterPage";
+import PaymentPage from "./screens/PaymentPage";
+import SubmitOrderPage from "./screens/SubmitOrderPage";
+import OrderPage from "./screens/OrderPage";
+import AllOrdersPage from "./screens/AllOrdersPage";
+import UserProfilePage from "./screens/UserProfilePage";
 import Button from "react-bootstrap/Button";
 import { getError } from "./utils";
 import axios from "axios";
 import SearchBox from "./components/SearchBox";
-import SearchScreen from "./screens/SearchScreen";
+import SearchPage from "./screens/SearchPage";
 import ContactPage from "./screens/ContactPage";
 
 function App() {
@@ -145,23 +145,23 @@ function App() {
         <main>
           <Container className="mt-3">
             <Routes>
-              <Route path="/product/:slug" element={<ProductScreen />} />
-              <Route path="/cart" element={<CartScreen />} />
-              <Route path="/search" element={<SearchScreen />} />
-              <Route path="/signin" element={<SigninScreen />} />
-              <Route path="/signup" element={<SignupScreen />} />
-              <Route path="/profile" element={<ProfileScreen />} />
-              <Route path="/placeorder" element={<PlaceOrderScreen />} />
-              <Route path="/order/:id" element={<OrderScreen />} />
+              <Route path="/product/:slug" element={<ProductPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/search" element={<SearchPage />} />
+              <Route path="/signin" element={<LogInPage />} />
+              <Route path="/signup" element={<RegisterPage />} />
+              <Route path="/profile" element={<UserProfilePage />} />
+              <Route path="/submitorder" element={<SubmitOrderPage />} />
+              <Route path="/order/:id" element={<OrderPage />} />
               <Route
                 path="/orderhistory"
-                element={<OrderHistoryScreen />}
+                element={<AllOrdersPage />}
               ></Route>
               <Route
                 path="/shipping"
-                element={<ShippingAddressScreen />}
+                element={<ShippingPage />}
               ></Route>
-              <Route path="/payment" element={<PaymentMethodScreen />}></Route>
+              <Route path="/payment" element={<PaymentPage />}></Route>
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/" element={<MainPage />} />
             </Routes>

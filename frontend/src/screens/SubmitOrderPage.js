@@ -1,17 +1,14 @@
 import React, { useContext, useEffect, useReducer } from "react";
 import CheckoutSteps from "../components/CheckoutSteps";
-import { Helmet } from "react-helmet-async";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Store } from "../Store";
 import { Link, useNavigate } from "react-router-dom";
 import { getError } from "../utils";
 import { toast } from "react-toastify";
 import Axios from "axios";
-import LoadingBox from "../components/LoadingBox";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -26,7 +23,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function PlaceOrderScreen() {
+export default function SubmitOrderPage() {
   const navigate = useNavigate();
 
   const [{ loading }, dispatch] = useReducer(reducer, {
@@ -44,7 +41,7 @@ export default function PlaceOrderScreen() {
   cart.taxPrice = round2(0.15 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
-  const placeOrderHandler = async () => {
+  const submitOrderAction = async () => {
     try {
       dispatch({ type: "CREATE_REQUEST" });
       const { data } = await Axios.post(
@@ -81,108 +78,101 @@ export default function PlaceOrderScreen() {
   }, [cart, navigate]);
 
   return (
-    <div>
+    <div className="submit-order-page-main-section">
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
-      <Helmet>
-        <title>Preview Order</title>
-      </Helmet>
-      <h1 className="my-3">Preview Order</h1>
+      <h1 className="submit-order-page-title">Submit order</h1>
       <Row>
         <Col md={8}>
           <Card className="mb-3">
-            <Card.Body>
-              <Card.Title>Shipping</Card.Title>
-              <Card.Text>
+            <Card.Body className="submit-order-body">
+              <h3>Shipping</h3>
+              <div>
+                {" "}
                 <strong>Name:</strong> {cart.shippingAddress.fullName} <br />
                 <strong>Address: </strong> {cart.shippingAddress.address},
                 {cart.shippingAddress.city}, {cart.shippingAddress.postalCode},
                 {cart.shippingAddress.country}
-              </Card.Text>
-              <Link to="/shipping">Edit</Link>
-            </Card.Body>
-          </Card>
-
-          <Card className="mb-3">
-            <Card.Body>
-              <Card.Title>Payment</Card.Title>
-              <Card.Text>
+              </div>
+              <div>
+                <Link className="edit-btn" to="/shipping">
+                  Edit
+                </Link>
+              </div>
+              <div className="line-horizontal"></div>
+              <h3>Payment</h3>
+              <div>
                 <strong>Method:</strong> {cart.paymentMethod}
-              </Card.Text>
-              <Link to="/payment">Edit</Link>
-            </Card.Body>
-          </Card>
-
-          <Card className="mb-3">
-            <Card.Body>
-              <Card.Title>Items</Card.Title>
+              </div>
+              <div>
+                <Link className="edit-btn" to="/payment">
+                  Edit
+                </Link>
+              </div>
+              <div className="line-horizontal"></div>
+              <h3>Products</h3>
               <ListGroup variant="flush">
-                {cart.cartItems.map((item) => (
-                  <ListGroup.Item key={item._id}>
+                {cart.cartItems.map((product) => (
+                  <ListGroup.Item key={product._id}>
                     <Row className="align-items-center">
                       <Col md={6}>
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="img-fluid rounded img-thumbnail"
-                        ></img>{" "}
-                        <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                        <img src={product.image} alt={product.name}></img>{" "}
+                        <Link to={`/product/${product.slug}`}>
+                          {product.name}
+                        </Link>
                       </Col>
                       <Col md={3}>
-                        <span>{item.quantity}</span>
+                        <span>{product.quantity}</span>
                       </Col>
-                      <Col md={3}>${item.price}</Col>
+                      <Col md={3}>{product.price} $</Col>
                     </Row>
                   </ListGroup.Item>
                 ))}
               </ListGroup>
-              <Link to="/cart">Edit</Link>
+              <div>
+                <Link className="edit-btn" to="/cart">
+                  Edit
+                </Link>
+              </div>
             </Card.Body>
           </Card>
         </Col>
         <Col md={4}>
           <Card>
             <Card.Body>
-              <Card.Title>Order Summary</Card.Title>
+              <Card.Title>Order Information</Card.Title>
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
-                    <Col>Items</Col>
-                    <Col>${cart.itemsPrice.toFixed(2)}</Col>
+                    <Col>Products cost</Col>
+                    <Col>{cart.itemsPrice.toFixed(2)} $</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Shipping</Col>
-                    <Col>${cart.shippingPrice.toFixed(2)}</Col>
+                    <Col>Shipping cost</Col>
+                    <Col>{cart.shippingPrice.toFixed(2)} $</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Tax</Col>
-                    <Col>${cart.taxPrice.toFixed(2)}</Col>
+                    <Col>Tax cost</Col>
+                    <Col>{cart.taxPrice.toFixed(2)} $</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>
-                      <strong> Order Total</strong>
-                    </Col>
-                    <Col>
-                      <strong>${cart.totalPrice.toFixed(2)}</strong>
-                    </Col>
+                    <Col>Order Total</Col>
+                    <Col>{cart.totalPrice.toFixed(2)} $</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <div className="d-grid">
-                    <Button
-                      type="button"
-                      onClick={placeOrderHandler}
-                      disabled={cart.cartItems.length === 0}
-                    >
-                      Place Order
-                    </Button>
+                  <div>
+                    <button onClick={submitOrderAction}
+                      disabled={cart.cartItems.length === 0} className="submit-order-btn-confirmation">
+                      Confirm <i className="fas fa-arrow-right"></i>
+                    </button>
                   </div>
-                  {loading && <LoadingBox></LoadingBox>}
+                  {loading && <h1>Page loading...</h1>}
                 </ListGroup.Item>
               </ListGroup>
             </Card.Body>

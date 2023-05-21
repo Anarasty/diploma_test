@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { Store } from "../Store";
 
-export default function PaymentMethodScreen() {
+export default function PaymentPage() {
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
@@ -22,21 +20,19 @@ export default function PaymentMethodScreen() {
       navigate("/shipping");
     }
   }, [shippingAddress, navigate]);
-  const submitHandler = (e) => {
+
+  const formSubmitAction = (e) => {
     e.preventDefault();
     ctxDispatch({ type: "SAVE_PAYMENT_METHOD", payload: paymentMethodName });
     localStorage.setItem("paymentMethod", paymentMethodName);
-    navigate("/placeorder");
+    navigate("/submitorder");
   };
   return (
-    <div>
+    <div className="payment-page-main-section">
       <CheckoutSteps step1 step2 step3></CheckoutSteps>
       <div className="container small-container">
-        <Helmet>
-          <title>Payment Method</title>
-        </Helmet>
-        <h1 className="my-3">Payment Method</h1>
-        <Form onSubmit={submitHandler}>
+        <h1 className="payment-page-title">Choose payment method</h1>
+        <Form onSubmit={formSubmitAction}>
           <div className="mb-3">
             <Form.Check
               type="radio"
@@ -49,6 +45,29 @@ export default function PaymentMethodScreen() {
           </div>
           <div className="mb-3">
             <Form.Check
+              disabled
+              type="radio"
+              id="PrivatPay"
+              label="PrivatPay"
+              value="PrivatPay"
+              checked={paymentMethodName === "PrivatPay"}
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <Form.Check
+              disabled
+              type="radio"
+              id="Visa/Mastercard"
+              label="Visa/Mastercard"
+              value="Visa/Mastercard"
+              checked={paymentMethodName === "Visa/Mastercard"}
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <Form.Check
+              disabled
               type="radio"
               id="Stripe"
               label="Stripe"
@@ -57,8 +76,8 @@ export default function PaymentMethodScreen() {
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
           </div>
-          <div className="mb-3">
-            <Button type="submit">Continue</Button>
+          <div>
+            <button type="submit" className="submit-payment-btn">Submit <i className="fas fa-arrow-right"></i></button>
           </div>
         </Form>
       </div>

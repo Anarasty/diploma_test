@@ -1,17 +1,15 @@
 import Axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
-import { Helmet } from "react-helmet-async";
-import Button from "react-bootstrap/Button";
 import { useContext, useEffect, useState } from "react";
 import { Store } from "../Store";
 import { toast } from "react-toastify";
 import { getError } from "../utils";
 
-export default function SignupScreen() {
+export default function RegisterPage() {
   const navigate = useNavigate();
   const { search } = useLocation();
+
   const redirectInUrl = new URLSearchParams(search).get("redirect");
   const redirect = redirectInUrl ? redirectInUrl : "/";
 
@@ -22,10 +20,10 @@ export default function SignupScreen() {
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
-  const submitHandler = async (e) => {
+  const formSubmitAction = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      toast.error("Password don't match!");
+      toast.error("Wrong password!");
       return;
     }
     try {
@@ -49,50 +47,45 @@ export default function SignupScreen() {
   }, [navigate, redirect, userInfo]);
 
   return (
-    <Container className="small-container">
-      <Helmet>
-        <title>Sign Up</title>
-      </Helmet>
-      <h1 className="my-3">Sign Up</h1>
-      <Form onSubmit={submitHandler}>
-        <Form.Group className="mb-3" controlId="name">
+    <div className="container small-container">
+      <h1 className="signin-page-title">Register</h1>
+      <Form className="register-form" onSubmit={formSubmitAction}>
+        <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
-          <Form.Control onChange={(e) => setName(e.target.value)} required />
+          <Form.Control onChange={(e) => setName(e.target.value)} required
+            placeholder="Max Peterson" autoComplete="off"/>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="email">
+        <Form.Group controlId="email">
           <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
-            required
             onChange={(e) => setEmail(e.target.value)}
+            required
+            placeholder="example@gmail.com"
+            autoComplete="off"
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="password">
+        <Form.Group controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
-            required
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </Form.Group>
-
-        <Form.Group className="mb-3" controlId="confirmPassword">
+        <Form.Group controlId="confirmPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
-            required
             onChange={(e) => setConfirmPassword(e.target.value)}
+            required
           />
         </Form.Group>
-
-        <div className="mb-3">
-          <Button type="submit">Sign Up</Button>
-        </div>
-        <div className="mb-3">
-          Already have an account?{" "}
-          <Link to={`/signin?redirect=${redirect}`}>Sign In</Link>
+        <div className="register-btns-container">
+          <button className="submit-register-btn" type="submit">Submit</button>
+          <Link to={`/signin?redirect=${redirect}`}>LogIn</Link>
         </div>
       </Form>
-    </Container>
+    </div>
   );
 }

@@ -5,12 +5,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
-import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import Rating from "../components/Rating";
-import { Helmet } from "react-helmet-async";
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
 import { getError } from "../utils";
 import { Store } from "../Store";
 
@@ -27,7 +23,7 @@ const reducer = (state, action) => {
   }
 };
 
-function ProducrScreen() {
+function ProductPage() {
   const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
@@ -68,51 +64,41 @@ function ProducrScreen() {
   };
 
   return loading ? (
-    <LoadingBox />
+    <h1>Page loading...</h1>
   ) : error ? (
-    <MessageBox variant="danger">{error}</MessageBox>
+    <div className="error-box">{error}</div>
   ) : (
     <div>
       <Row>
-        <Col md={6}>
-          <img
-            className="img-large"
-            src={product.image}
-            alt={product.name}
-          ></img>
+        <Col md={4}>
+          <img className="img-large" src={product.image} alt="product"></img>
         </Col>
-        <Col md={3}>
-          <ListGroup variant="flush">
-            <ListGroup.Item>
-              <Helmet>
-                <title>{product.name}</title>
-              </Helmet>
-              <h1>{product.name}</h1>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Rating
-                rating={product.rating}
-                numReviews={product.numReviews}
-              ></Rating>
-            </ListGroup.Item>
-            <ListGroup.Item>Price : ${product.price}</ListGroup.Item>
-            <ListGroup.Item>
-              Description:
-              <p>{product.description}</p>
-            </ListGroup.Item>
-          </ListGroup>
+        <Col md={5}>
+          <Card>
+            <Card.Body>
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <h1>{product.name}</h1>
+                  Description:
+                  <p>{product.description}</p>
+                  <Rating
+                    rating={product.rating}
+                    numReviews={product.numReviews}
+                  ></Rating>
+                </ListGroup.Item>
+              </ListGroup>
+            </Card.Body>
+          </Card>
         </Col>
         <Col md={3}>
           <Card>
             <Card.Body>
               <ListGroup variant="flush">
-                <ListGroup.Item>
+                <ListGroup.Item className="list-group-info-product">
                   <Row>
                     <Col>Price:</Col>
-                    <Col>${product.price}</Col>
+                    <Col>{product.price} $</Col>
                   </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
                   <Row>
                     <Col>Status:</Col>
                     <Col>
@@ -123,25 +109,23 @@ function ProducrScreen() {
                       )}
                     </Col>
                   </Row>
+                  {product.countInStock > 0 ? (
+                    <div>
+                      <button
+                        className="product-add-cart-btn"
+                        onClick={addToCartHandler}
+                      >
+                        Add to cart
+                      </button>
+                    </div>
+                  ) : (
+                    <div>
+                      <button className="product-add-cart-btn" disabled>
+                        Add to cart
+                      </button>
+                    </div>
+                  )}
                 </ListGroup.Item>
-
-                {product.countInStock > 0 ? (
-                  <ListGroup.Item>
-                    <div className="d-grid">
-                      <Button onClick={addToCartHandler} variant="primary">
-                        Add cart
-                      </Button>
-                    </div>
-                  </ListGroup.Item>
-                ) : (
-                  <ListGroup.Item>
-                    <div className="d-grid">
-                      <Button disabled variant="secondary">
-                        Add cart
-                      </Button>
-                    </div>
-                  </ListGroup.Item>
-                )}
               </ListGroup>
             </Card.Body>
           </Card>
@@ -151,4 +135,4 @@ function ProducrScreen() {
   );
 }
 
-export default ProducrScreen;
+export default ProductPage;
