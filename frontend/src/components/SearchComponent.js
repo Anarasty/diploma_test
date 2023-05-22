@@ -9,7 +9,7 @@ export default function SearchComponent() {
   const [searchQuery, seSearchQuery] = useState("");
   const formSubmitAction = (e) => {
     e.preventDefault();
-    navigate(searchQuery ? `/search/?query=${searchQuery}` : "/search");
+    navigate(searchQuery ? `/filters/?query=${searchQuery}` : "/filters");
   };
 
   return (

@@ -144,11 +144,11 @@ export default function OrderPage() {
               <h3 className="text-center">Devilery info</h3>
               <div className="devilery-container-order">
                 {" "}
-                <span>Name: {order.shippingAddress.fullName}</span>
-                <span>Address: {order.shippingAddress.address}</span>
-                <span>City: {order.shippingAddress.city}</span>
-                <span>County: {order.shippingAddress.country}</span>
-                <span>Postal: {order.shippingAddress.postalCode}</span>
+                <span>Name: {order.deliveryAddress.fullName}</span>
+                <span>Address: {order.deliveryAddress.address}</span>
+                <span>City: {order.deliveryAddress.city}</span>
+                <span>County: {order.deliveryAddress.country}</span>
+                <span>Postal: {order.deliveryAddress.postalCode}</span>
               </div>
               <div className="line-horizontal"></div>
               <h3 className="text-center">Payment</h3>
@@ -157,9 +157,9 @@ export default function OrderPage() {
                 <span>
                   {" "}
                   Payment status:{" "}
-                  {order.isPaid ? (
+                  {order.paymentChecked ? (
                     <span className="status-box-done">
-                      Paid at {order.paidAt.substring(0, 10)}
+                      Paid at {order.paymentData.substring(0, 10)}
                     </span>
                   ) : (
                     <span className="status-box-undone">Not Paid</span>
@@ -190,7 +190,7 @@ export default function OrderPage() {
                 <Col>Order Total:</Col>
                 <Col>{order.totalPrice.toFixed(2)} $</Col>
                 <Col>
-                {!order.isPaid && (
+                {!order.paymentChecked && (
                   <div>
                     {isPending ? (
                       <h1>Page loading...</h1>

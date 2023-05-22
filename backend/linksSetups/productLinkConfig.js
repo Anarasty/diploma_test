@@ -10,16 +10,14 @@ productLinkSetup.get("/", async (request, respond) => {
 });
 
 productLinkSetup.get(
-  '/search',
+  '/filters',
   expressAsyncHandler(async (request, respond) => {
     const { query } = request;
     const pageSize = query.pageSize || 6;
     const page = query.page || 1;
     const category = query.category || '';
-    const brand = query.brand || '';
     const price = query.price || '';
     const rating = query.rating || '';
-    const order = query.order || '';
     const searchQuery = query.query || '';
 
     const getAllFilters =

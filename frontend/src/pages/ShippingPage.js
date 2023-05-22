@@ -10,21 +10,21 @@ export default function ShippingPage() {
   const { state, dispatch: ctxDispatch } = useContext(MainLogic);
   const {
     userInfo,
-    cart: { shippingAddress },
+    cart: { deliveryAddress },
   } = state;
-  const [fullName, setFullName] = useState(shippingAddress.fullName || "");
-  const [address, setAddress] = useState(shippingAddress.address || "");
-  const [city, setCity] = useState(shippingAddress.city || "");
+  const [fullName, setFullName] = useState(deliveryAddress.fullName || "");
+  const [address, setAddress] = useState(deliveryAddress.address || "");
+  const [city, setCity] = useState(deliveryAddress.city || "");
   const [postalCode, setPostalCode] = useState(
-    shippingAddress.postalCode || ""
+    deliveryAddress.postalCode || ""
   );
   useEffect(() => {
     if (!userInfo) {
-      navigate("/signin?redirect=/shipping");
+      navigate("/login?redirect=/delivery");
     }
   }, [userInfo, navigate]);
 
-  const [country, setCountry] = useState(shippingAddress.country || "");
+  const [country, setCountry] = useState(deliveryAddress.country || "");
   const formSubmitAction = (e) => {
     e.preventDefault();
     ctxDispatch({
@@ -38,7 +38,7 @@ export default function ShippingPage() {
       },
     });
     localStorage.setItem(
-      "shippingAddress",
+      "deliveryAddress",
       JSON.stringify({
         fullName,
         address,

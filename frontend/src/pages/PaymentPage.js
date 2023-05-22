@@ -7,12 +7,12 @@ export default function PaymentPage() {
 
   // Import the navigate function from the useNavigate hook,
   // accesses the state and ctxDispatch variables from the MainLogic
-  // context using the useContext hook, and extracts the shippingAddress
+  // context using the useContext hook, and extracts the deliveryAddress
   // and paymentMethod values from the cart object within the state.
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(MainLogic);
   const {
-    cart: { shippingAddress, paymentMethod },
+    cart: { deliveryAddress, paymentMethod },
   } = state;
 
   const [paymentMethodName, setPaymentMethod] = useState(
@@ -20,10 +20,10 @@ export default function PaymentPage() {
   );
 
   useEffect(() => {
-    if (!shippingAddress.address) {
-      navigate("/shipping");
+    if (!deliveryAddress.address) {
+      navigate("/delivery");
     }
-  }, [shippingAddress, navigate]);
+  }, [deliveryAddress, navigate]);
 
   // Function that handles form submission by preventing the default
   // form submission behavior, dispatching an action to

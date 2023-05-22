@@ -1,13 +1,13 @@
 import bcrypt from "bcryptjs";
 import User from "../DB/userDBcreate.js";
-import { isAuth, generateToken } from "../utils.js";
+import { authorizationCheck, generateToken } from "../utils.js";
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
 
 const userLinkSetup = express.Router();
 
 userLinkSetup.post(
-  "/signin",
+  "/login",
   expressAsyncHandler(async (request, response) => {
     const user = await User.findOne({ email: request.body.email });
     if (user) {
@@ -27,7 +27,7 @@ userLinkSetup.post(
 );
 
 userLinkSetup.post(
-  "/signup",
+  "/register",
   expressAsyncHandler(async (request, response) => {
     const newUser = new User({
       name: request.body.name,
@@ -46,8 +46,8 @@ userLinkSetup.post(
 );
 
 userLinkSetup.put(
-  "/profile",
-  isAuth,
+  "/edituser",
+  authorizationCheck,
   expressAsyncHandler(async (request, response) => {
     const user = await User.findById(request.user._id);
     if (user) {

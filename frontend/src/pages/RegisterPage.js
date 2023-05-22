@@ -32,7 +32,7 @@ export default function RegisterPage() {
       return;
     }
     try {
-      const { data } = await Axios.post("/api/users/signup", {
+      const { data } = await Axios.post("/api/usersData/register", {
         name,
         email,
         password,
@@ -88,7 +88,7 @@ export default function RegisterPage() {
         </Form.Group>
         <div className="register-btns-container">
           <button className="submit-register-btn" type="submit">Submit</button>
-          <Link to={`/signin?redirect=${URLredirect}`}>LogIn</Link>
+          <Link to={`/login?redirect=${URLredirect}`}>LogIn</Link>
         </div>
       </Form>
     </div>

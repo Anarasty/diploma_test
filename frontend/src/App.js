@@ -34,9 +34,9 @@ function App() {
   const signoutHandler = () => {
     ctxDispatch({ type: "USER_SIGNOUT" });
     localStorage.removeItem("userInfo");
-    localStorage.removeItem("shippingAddress");
+    localStorage.removeItem("deliveryAddress");
     localStorage.removeItem("paymentMethod");
-    window.location.href = "/signin";
+    window.location.href = "/login";
   };
 
   return (
@@ -75,13 +75,13 @@ function App() {
                       id="basic-nav-dropdown"
                       className="dropdown-user"
                     >
-                      <LinkContainer to="/profile">
+                      <LinkContainer to="/edituser">
                         <NavDropdown.Item>Edit Profile</NavDropdown.Item>
                       </LinkContainer>
-                      <LinkContainer to="/orderhistory">
+                      <LinkContainer to="/allorders">
                         <NavDropdown.Item>Orders Info</NavDropdown.Item>
                       </LinkContainer>
-                      <LinkContainer to="/shipping">
+                      <LinkContainer to="/delivery">
                         <NavDropdown.Item>Delivery Info</NavDropdown.Item>
                       </LinkContainer>
                       <Link
@@ -93,7 +93,7 @@ function App() {
                       </Link>
                     </NavDropdown>
                   ) : (
-                    <Link className="nav-link" to="/signin">
+                    <Link className="nav-link" to="/login">
                       Login
                     </Link>
                   )}
@@ -107,15 +107,15 @@ function App() {
             <Routes>
               <Route path="/product/:productTag" element={<ProductPage />} />
               <Route path="/cart" element={<CartPage />} />
-              <Route path="/signin" element={<LogInPage />} />
-              <Route path="/signup" element={<RegisterPage />} />
-              <Route path="/search" element={<SearchPage />} />
-              <Route path="/profile" element={<UserProfilePage />} />
+              <Route path="/login" element={<LogInPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/filters" element={<SearchPage />} />
+              <Route path="/edituser" element={<UserProfilePage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/submitorder" element={<SubmitOrderPage />} />
               <Route path="/order/:id" element={<OrderPage />} />
-              <Route path="/orderhistory" element={<AllOrdersPage />}></Route>
-              <Route path="/shipping" element={<ShippingPage />}></Route>
+              <Route path="/allorders" element={<AllOrdersPage />}></Route>
+              <Route path="/delivery" element={<ShippingPage />}></Route>
               <Route path="/payment" element={<PaymentPage />}></Route>
               <Route path="/" element={<MainPage />} />
             </Routes>

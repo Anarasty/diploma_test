@@ -34,7 +34,7 @@ export default function LogInPage() {
   const formSubmitAction = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await Axios.post("/api/users/signin", {
+      const { data } = await Axios.post("/api/usersData/login", {
         email,
         password,
       });
@@ -80,7 +80,7 @@ export default function LogInPage() {
         </Form.Group>
         <div className="login-btns-container">
           <button className="submit-login-btn" type="submit">LogIn</button>
-          <Link to={`/signup?redirect=${URLredirect}`}>Register</Link>
+          <Link to={`/register?redirect=${URLredirect}`}>Register</Link>
         </div>
       </Form>
     </div>

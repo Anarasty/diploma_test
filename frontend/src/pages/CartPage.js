@@ -25,7 +25,7 @@ export default function CartPage() {
   // displays an alert if the product is out of stock, and finally dispatches
   // an action to add the product with the specified quantity to the cart.
   const handleUpdateCartProducts = async (product, quantity) => {
-    const { data } = await axios.get(`/api/products/${product._id}`);
+    const { data } = await axios.get(`/api/productsData/${product._id}`);
     if (data.countInStock < quantity) {
       window.alert("Product finished.");
       return;
@@ -44,7 +44,7 @@ export default function CartPage() {
   };
 
   const handleCheckout = () => {
-    navigate("/signin?redirect=/shipping");
+    navigate("/login?redirect=/delivery");
   };
 
   return (

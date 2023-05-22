@@ -27,9 +27,9 @@ appControl.get('/api/keys/paypal', (request, response) => {
   response.send(process.env.PAYPAL_CLIENT_ID || 'sb')
 })
 
-appControl.use("/api/seed", seedLinkSetup);
-appControl.use("/api/products", productLinkSetup);
-appControl.use("/api/users", userLinkSetup);
+appControl.use("/api/seedInfo", seedLinkSetup);
+appControl.use("/api/productsData", productLinkSetup);
+appControl.use("/api/usersData", userLinkSetup);
 appControl.use("/api/orders", orderLinkSetup);
 
 appControl.use((error, request, response, next) => {

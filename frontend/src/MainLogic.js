@@ -12,8 +12,8 @@ const getAllLocalStates = {
     ? JSON.parse(localStorage.getItem("userInfo"))
     : null,
   cart: {
-    shippingAddress: localStorage.getItem("shippingAddress")
-      ? JSON.parse(localStorage.getItem("shippingAddress"))
+    deliveryAddress: localStorage.getItem("deliveryAddress")
+      ? JSON.parse(localStorage.getItem("deliveryAddress"))
       : {},
     paymentMethod: localStorage.getItem("paymentMethod")
       ? localStorage.getItem("paymentItem")
@@ -60,7 +60,7 @@ function reducer(state, action) {
         userInfo: null,
         cart: {
           cartItems: [],
-          shippingAddress: [],
+          deliveryAddress: [],
           paymentMethod: "",
         },
       };
@@ -69,7 +69,7 @@ function reducer(state, action) {
         ...state,
         cart: {
           ...state.cart,
-          shippingAddress: action.payload,
+          deliveryAddress: action.payload,
         },
       };
     case "SAVE_PAYMENT_METHOD":

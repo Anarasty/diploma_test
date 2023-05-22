@@ -42,8 +42,6 @@ export default function SubmitOrderPage() {
   cart.itemsPrice = getRoundTwo(
     cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)
   );
-  cart.shippingPrice = 0;
-  cart.taxPrice = 0;
   cart.totalPrice = cart.itemsPrice;
 
   const submitOrderAction = async () => {
@@ -53,11 +51,9 @@ export default function SubmitOrderPage() {
         "/api/orders",
         {
           orderItems: cart.cartItems,
-          shippingAddress: cart.shippingAddress,
+          deliveryAddress: cart.deliveryAddress,
           paymentMethod: cart.paymentMethod,
           itemsPrice: cart.itemsPrice,
-          shippingPrice: cart.shippingPrice,
-          taxPrice: cart.taxPrice,
           totalPrice: cart.totalPrice,
         },
         {
@@ -92,11 +88,11 @@ export default function SubmitOrderPage() {
               <h3 className="text-center">Devilery info</h3>
               <div className="devilery-container-order">
                 {" "}
-                <span>Name: {cart.shippingAddress.fullName}</span>
-                <span>Address: {cart.shippingAddress.address}</span>
-                <span>City: {cart.shippingAddress.city}</span>
-                <span>County: {cart.shippingAddress.country}</span>
-                <span>Postal: {cart.shippingAddress.postalCode}</span>
+                <span>Name: {cart.deliveryAddress.fullName}</span>
+                <span>Address: {cart.deliveryAddress.address}</span>
+                <span>City: {cart.deliveryAddress.city}</span>
+                <span>County: {cart.deliveryAddress.country}</span>
+                <span>Postal: {cart.deliveryAddress.postalCode}</span>
               </div>
               <div className="line-horizontal"></div>
               <h3 className="text-center">Payment info</h3>

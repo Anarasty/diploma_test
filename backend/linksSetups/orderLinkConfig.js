@@ -1,20 +1,18 @@
 import expressAsyncHandler from "express-async-handler";
 import express from "express";
 import Order from "../DB/orderDBcreate.js";
-import { isAuth } from "../utils.js";
+import { authorizationCheck } from "../utils.js";
 
 const orderLinkSetup = express.Router();
 orderLinkSetup.post(
   "/",
-  isAuth,
+  authorizationCheck,
   expressAsyncHandler(async (request, response) => {
     const newOrder = new Order({
       orderItems: request.body.orderItems.map((x) => ({ ...x, product: x._id })),
-      shippingAddress: request.body.shippingAddress,
+      deliveryAddress: request.body.deliveryAddress,
       paymentMethod: request.body.paymentMethod,
       itemsPrice: request.body.itemsPrice,
-      shippingPrice: request.body.shippingPrice,
-      taxPrice: request.body.taxPrice,
       totalPrice: request.body.totalPrice,
       user: request.user._id,
     });
@@ -26,7 +24,7 @@ orderLinkSetup.post(
 
 orderLinkSetup.get(
   "/myorders",
-  isAuth,
+  authorizationCheck,
   expressAsyncHandler(async (request, response) => {
     const orders = await Order.find({ user: request.user._id });
     response.send(orders);
@@ -35,7 +33,7 @@ orderLinkSetup.get(
 
 orderLinkSetup.get(
   "/:id",
-  isAuth,
+  authorizationCheck,
   expressAsyncHandler(async (request, response) => {
     const order = await Order.findById(request.params.id);
     if (order) {
@@ -48,12 +46,12 @@ orderLinkSetup.get(
 
 orderLinkSetup.put(
   "/:id/pay",
-  isAuth,
+  authorizationCheck,
   expressAsyncHandler(async (request, response) => {
     const order = await Order.findById(request.params.id);
     if (order) {
-      order.isPaid = true;
-      order.paidAt = Date.now();
+      order.paymentChecked = true;
+      order.paymentData = Date.now();
       order.paymentResult = {
         id: request.body.id,
         status: request.body.status,

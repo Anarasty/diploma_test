@@ -58,7 +58,7 @@ export default function SearchPage() {
   const navigate = useNavigate();
   const { search } = useLocation();
 
-  const searchParams = new URLSearchParams(search); // /search?category=Shirts
+  const searchParams = new URLSearchParams(search); 
   const category = searchParams.get("category") || "all";
   const query = searchParams.get("query") || "all";
   const price = searchParams.get("price") || "all";
@@ -75,7 +75,7 @@ export default function SearchPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get("/api/products/search", {
+        const { data } = await axios.get("/api/productsData/filters", {
           params: {
             page: page,
             query: query,
@@ -101,7 +101,7 @@ export default function SearchPage() {
     () => {
       const getCategoriesFunc = async () => {
         try {
-          const { data } = await axios.get(`/api/products/categories`);
+          const { data } = await axios.get(`/api/productsData/categories`);
           setCategories(data);
         } catch (err) {
           toast.error(getError(err));
@@ -121,7 +121,7 @@ export default function SearchPage() {
     const filterPrice = filter.price || price;
     const sortOrder = filter.order || order;
     return {
-      pathname: "/search",
+      pathname: "/filters",
       search: `?category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`,
     };
   };
@@ -196,7 +196,7 @@ export default function SearchPage() {
                     category !== "all" ||
                     rating !== "all" ||
                     price !== "all" ? (
-                      <button className="reset-filter-btn" onClick={() => navigate("/search")} ><i className="fa-solid fa-xmark"></i></button>
+                      <button className="reset-filter-btn" onClick={() => navigate("/filters")} ><i className="fa-solid fa-xmark"></i></button>
                     ) : null}
                   </div>
                 </Col>

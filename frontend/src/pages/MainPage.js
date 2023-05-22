@@ -54,7 +54,7 @@ function MainPage() {
     const fetchData = async () => {
       dispatch({ type: "GET_DATA_REQUEST" });
       try {
-        const result = await axios.get("/api/products");
+        const result = await axios.get("/api/productsData");
         dispatch({ type: "GET_DATA_SUCCESS", payload: result.data });
       } catch (err) {
         dispatch({ type: "GET_DATA_FAIL", payload: err.message });
