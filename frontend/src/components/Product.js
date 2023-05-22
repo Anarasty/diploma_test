@@ -1,10 +1,9 @@
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
-import Rating from "./Rating";
-import axios from "axios";
 import { useContext } from "react";
 import { Store } from "../Store";
+import axios from "axios";
 
 function Product(props) {
   const { product } = props;
@@ -22,28 +21,25 @@ function Product(props) {
       return;
     }
     ctxDispatch({
-      type: "CART_ADD_ITEM",
+      type: "ACTION_CART_ADDING",
       payload: { ...item, quantity },
     });
   };
 
   return (
-    <Card>
-      <Link to={`/product/${product.slug}`}>
-        <img src={product.image} className="card-img-top" alt={product.name} />
+    <Card className="solo-product-card">
+      <Link to={`/product/${product.productTag}`}>
+        <img src={product.image} className="card-img-top" alt='prod name' />
       </Link>
       <Card.Body>
-        <Link to={`/product/${product.slug}`}>
+        <Link className="solo-product-name" to={`/product/${product.productTag}`}>
           <Card.Title>{product.name}</Card.Title>
         </Link>
-        <Rating rating={product.rating} numReviews={product.numReviews} />
-        <Card.Text>${product.price}</Card.Text>
+        <Card.Text>Price: {product.price}$</Card.Text>
         {product.countInStock === 0 ? (
-          <Button variant="light" disabled>
-            Out of stock
-          </Button>
+          <button className="solo-product-btn-finished">Finished</button>
         ) : (
-          <Button onClick={() => addToCartHandler(product)}>Add cart</Button>
+          <button className="solo-product-btn-available" onClick={() => addToCartHandler(product)}>Add cart</button>
         )}
       </Card.Body>
     </Card>

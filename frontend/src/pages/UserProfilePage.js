@@ -53,7 +53,7 @@ export default function UserProfilePage() {
       toast.success('INFO UPDATED!');
     } catch (err) {
       dispatch({
-        type: 'FETCH_FAIL',
+        type: 'GET_DATA_FAIL',
       });
       toast.error(getError(err));
     }

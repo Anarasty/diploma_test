@@ -28,11 +28,11 @@ const responsive = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "FETCH_REQUEST":
+    case "GET_DATA_REQUEST":
       return { ...state, loading: true };
-    case "FETCH_SUCCESS":
+    case "GET_DATA_SUCCESS":
       return { ...state, products: action.payload, loading: false };
-    case "FETCH_FAIL":
+    case "GET_DATA_FAIL":
       return { ...state, loading: false, error: action.payload };
     default:
       return state;
@@ -47,12 +47,12 @@ function MainPage() {
   });
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: "FETCH_REQUEST" });
+      dispatch({ type: "GET_DATA_REQUEST" });
       try {
         const result = await axios.get("/api/products");
-        dispatch({ type: "FETCH_SUCCESS", payload: result.data });
+        dispatch({ type: "GET_DATA_SUCCESS", payload: result.data });
       } catch (err) {
-        dispatch({ type: "FETCH_FAIL", payload: err.message });
+        dispatch({ type: "GET_DATA_FAIL", payload: err.message });
       }
     };
     fetchData();
@@ -85,7 +85,7 @@ function MainPage() {
         </Carousel>
       </div>
 
-      <h1>Featured products</h1>
+      <h1 className="main-page-title">CHECK OUR PRODUCTS</h1>
       <div className="products">
         {loading ? (
           <h1>Page loading...</h1>
@@ -94,7 +94,7 @@ function MainPage() {
         ) : (
           <Row>
             {products.map((product) => (
-              <Col key={product.slug} sm={6} md={4} lg={3}>
+              <Col key={product.productTag} sm={6} md={4} lg={3}>
                 <Product product={product}></Product>
               </Col>
             ))}

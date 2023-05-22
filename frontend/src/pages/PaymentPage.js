@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
-import CheckoutSteps from "../components/CheckoutSteps";
 import { Store } from "../Store";
 
 export default function PaymentPage() {
@@ -29,11 +28,10 @@ export default function PaymentPage() {
   };
   return (
     <div className="payment-page-main-section">
-      <CheckoutSteps step1 step2 step3></CheckoutSteps>
       <div className="container small-container">
         <h1 className="payment-page-title">Choose payment method</h1>
         <Form onSubmit={formSubmitAction}>
-          <div className="mb-3">
+          <div className="form-payment">
             <Form.Check
               type="radio"
               id="PayPal"
@@ -42,8 +40,6 @@ export default function PaymentPage() {
               checked={paymentMethodName === "PayPal"}
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
-          </div>
-          <div className="mb-3">
             <Form.Check
               disabled
               type="radio"
@@ -53,8 +49,6 @@ export default function PaymentPage() {
               checked={paymentMethodName === "PrivatPay"}
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
-          </div>
-          <div className="mb-3">
             <Form.Check
               disabled
               type="radio"
@@ -64,8 +58,6 @@ export default function PaymentPage() {
               checked={paymentMethodName === "Visa/Mastercard"}
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
-          </div>
-          <div className="mb-3">
             <Form.Check
               disabled
               type="radio"
@@ -77,7 +69,9 @@ export default function PaymentPage() {
             />
           </div>
           <div>
-            <button type="submit" className="submit-payment-btn">Submit <i className="fas fa-arrow-right"></i></button>
+            <button type="submit" className="submit-payment-btn">
+              Submit <i className="fas fa-arrow-right"></i>
+            </button>
           </div>
         </Form>
       </div>

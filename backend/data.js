@@ -19,7 +19,7 @@ const data = {
     {
       //_id: "1",
       name: "Bohemian TearDrop Earrings",
-      slug: "bohemian-teardrop-earrings",
+      productTag: "bohemian-teardrop-earrings",
       category: "Jewelry",
       image: "/images/p1.jpg",
       price: 15,
@@ -33,7 +33,7 @@ const data = {
     {
       //_id: "2",
       name: "Flowers dangle earrings",
-      slug: "flowers-dangle-earrings",
+      productTag: "flowers-dangle-earrings",
       category: "Jewelry",
       image: "/images/p2.jpg",
       price: 21,
@@ -47,7 +47,7 @@ const data = {
     {
       //_id: "3",
       name: "Green TearDrop Earrings",
-      slug: "green-teardrop-earrings",
+      productTag: "green-teardrop-earrings",
       category: "Jewelry",
       image: "/images/p3.jpg",
       price: 11,
@@ -61,7 +61,7 @@ const data = {
     {
       //_id: "4",
       name: "Leather Dog Collar",
-      slug: "leather-dog-collar",
+      productTag: "leather-dog-collar",
       category: "Pet Supplies",
       image: "/images/p4.jpg",
       price: 15,
@@ -75,7 +75,7 @@ const data = {
     {
       //_id: "5",
       name: "Carstens Ceramic Vase",
-      slug: "carstens-ceramic-vase",
+      productTag: "carstens-ceramic-vase",
       category: "Vases",
       image: "/images/p5.jpg",
       price: 34,
@@ -89,7 +89,7 @@ const data = {
     {
       //_id: "6",
       name: "Bougainvilleas Wall Art",
-      slug: "bougainvilleas-wall-art",
+      productTag: "bougainvilleas-wall-art",
       category: "Wall decor",
       image: "/images/p6.jpg",
       price: 4,
@@ -103,7 +103,7 @@ const data = {
     {
       //_id: "7",
       name: "40cm Wooden Lamp Design",
-      slug: "40cm-wooden-lamp-design",
+      productTag: "40cm-wooden-lamp-design",
       category: "Lighting",
       image: "/images/p7.jpg",
       price: 210,
@@ -117,7 +117,7 @@ const data = {
     {
       //_id: "8",
       name: "Mid Century Modern Wooden Lamp",
-      slug: "Mid Century Modern Wooden Lamp",
+      productTag: "Mid Century Modern Wooden Lamp",
       category: "Lighting",
       image: "/images/p8.jpg",
       price: 160,
@@ -131,7 +131,7 @@ const data = {
     {
       //_id: "9",
       name: "Frida Kahlo Crochet Doll",
-      slug: "frida-kahlo-crochet-doll",
+      productTag: "frida-kahlo-crochet-doll",
       category: "Toys",
       image: "/images/p9.jpg",
       price: 22,
@@ -145,7 +145,7 @@ const data = {
     {
       //_id: "10",
       name: "Oval Wood Earring Copper Tear",
-      slug: "oval-wood-earring-copper-tear",
+      productTag: "oval-wood-earring-copper-tear",
       category: "Jewelry",
       image: "/images/p10.jpg",
       price: 19,
@@ -159,7 +159,7 @@ const data = {
     {
       //_id: "11",
       name: "Bamboo Pendant Light",
-      slug: "Bamboo Pendant Light",
+      productTag: "Bamboo Pendant Light",
       category: "Lighting",
       image: "/images/p11.jpg",
       price: 28,
@@ -173,7 +173,7 @@ const data = {
     {
       //_id: "12",
       name: "Field Of Flowers Art Canvas",
-      slug: "field-of-flowers-art-canvas",
+      productTag: "field-of-flowers-art-canvas",
       category: "Wall decor",
       image: "/images/p12.jpg",
       price: 65,
@@ -187,7 +187,7 @@ const data = {
     {
       //_id: "13",
       name: "Folk Pendant Necklace",
-      slug: "folk-pendant-necklace",
+      productTag: "folk-pendant-necklace",
       category: "Jewelry",
       image: "/images/p13.jpg",
       price: 12,
@@ -201,7 +201,7 @@ const data = {
     {
       //_id: "14",
       name: "Personalized Dog Leash Leather",
-      slug: "personalized-dog-leash-leather",
+      productTag: "personalized-dog-leash-leather",
       category: "Pet Supplies",
       image: "/images/p14.jpg",
       price: 32,
@@ -215,7 +215,7 @@ const data = {
     {
       //_id: "15",
       name: "Rattan Woven Vase",
-      slug: "rattan-woven-vase",
+      productTag: "rattan-woven-vase",
       category: "Vases",
       image: "/images/p15.jpg",
       price: 32,
@@ -229,7 +229,7 @@ const data = {
     {
       //_id: "16",
       name: "Waldorf Custom Doll",
-      slug: "waldorf-custom-doll",
+      productTag: "waldorf-custom-doll",
       category: "Toys",
       image: "/images/p16.jpg",
       price: 83,
@@ -243,7 +243,7 @@ const data = {
     {
       //_id: "17",
       name: "Wood Pendant Ceiling Light",
-      slug: "wood-pendant-ceiling-light",
+      productTag: "wood-pendant-ceiling-light",
       category: "Lighting",
       image: "/images/p17.jpg",
       price: 115,
@@ -257,7 +257,7 @@ const data = {
     {
       //_id: "18",
       name: "Floral Embroidery Kit",
-      slug: "floral-embroidery-kit",
+      productTag: "floral-embroidery-kit",
       category: "Fiber Arts",
       image: "/images/p18.jpg",
       price: 20,
@@ -271,7 +271,7 @@ const data = {
     {
       //_id: "19",
       name: "Wool Moroccan Rug",
-      slug: "Wool Moroccan Rug",
+      productTag: "Wool Moroccan Rug",
       category: "Fiber Arts",
       image: "/images/p19.jpg",
       price: 870,
@@ -285,7 +285,7 @@ const data = {
     {
       //_id: "20",
       name: "Needle Felted Blue Tit",
-      slug: "needle-felted-blue-tit",
+      productTag: "needle-felted-blue-tit",
       category: "Fiber Arts",
       image: "/images/p20.jpg",
       price: 28,
@@ -299,7 +299,7 @@ const data = {
     {
       //_id: "21",
       name: "Leather cover for Leuchtturm",
-      slug: "leather-cover-for-leuchtturm",
+      productTag: "leather-cover-for-leuchtturm",
       category: "Books",
       image: "/images/p21.jpg",
       price: 27,
@@ -313,7 +313,7 @@ const data = {
     {
       //_id: "22",
       name: "Vintage Photo Album",
-      slug: "vintage-photo-album",
+      productTag: "vintage-photo-album",
       category: "Books",
       image: "/images/p22.jpg",
       price: 39,
@@ -327,7 +327,7 @@ const data = {
     {
       //_id: "23",
       name: "Teardrop Earrings With Birds",
-      slug: "teardrop-earrings-with-birds",
+      productTag: "teardrop-earrings-with-birds",
       category: "Jewelry",
       image: "/images/p23.jpg",
       price: 11,
@@ -341,7 +341,7 @@ const data = {
     {
       //_id: "24",
       name: "Abstract Colorful Oil Painting",
-      slug: "abstract-colorful-oil-painting",
+      productTag: "abstract-colorful-oil-painting",
       category: "Wall decor",
       image: "/images/p24.jpg",
       price: 115,
@@ -355,7 +355,7 @@ const data = {
     {
       //_id: "25",
       name: "Luxury Ceramic Vases",
-      slug: "luxury-cramic-vases",
+      productTag: "luxury-cramic-vases",
       category: "Vases",
       image: "/images/p25.jpg",
       price: 49,
@@ -369,7 +369,7 @@ const data = {
     {
       //_id: "26",
       name: "Engraved Notebook Personalized",
-      slug: "engraved-notebook-personalized",
+      productTag: "engraved-notebook-personalized",
       category: "Books",
       image: "/images/p26.jpg",
       price: 8,
@@ -383,7 +383,7 @@ const data = {
     {
       //_id: "27",
       name: "Metalwork Embroidery Fox Kit",
-      slug: "metalwork-embroidery-fox-kit",
+      productTag: "metalwork-embroidery-fox-kit",
       category: "Fiber Arts",
       image: "/images/p27.jpg",
       price: 51,
@@ -397,7 +397,7 @@ const data = {
     {
       //_id: "28",
       name: "3D Printed Articulated Dragon",
-      slug: "3d-printed-articulated-dragon",
+      productTag: "3d-printed-articulated-dragon",
       category: "Toys",
       image: "/images/p28.jpg",
       price: 47,
@@ -411,7 +411,7 @@ const data = {
     {
       //_id: "29",
       name: "Bonsai Rustic Decor Light",
-      slug: "bonsai-rustic-decor-light",
+      productTag: "bonsai-rustic-decor-light",
       category: "Lighting",
       image: "/images/p29.jpg",
       price: 19,
@@ -425,7 +425,7 @@ const data = {
     {
       //_id: "30",
       name: "Personalised Dog Collar",
-      slug: "personalised-dog-collar",
+      productTag: "personalised-dog-collar",
       category: "Pet Supplies",
       image: "/images/p30.jpg",
       price: 25,
@@ -439,7 +439,7 @@ const data = {
     {
       //_id: "31",
       name: "Refillable Leather Journal",
-      slug: "refillable-leather-journal",
+      productTag: "refillable-leather-journal",
       category: "Books",
       image: "/images/p31.jpg",
       price: 46,
@@ -453,7 +453,7 @@ const data = {
     {
       //_id: "32",
       name: "Chicks Crocheted in Eggs",
-      slug: "chicks-crocheted-in-eggs",
+      productTag: "chicks-crocheted-in-eggs",
       category: "Fiber Arts",
       image: "/images/p32.jpg",
       price: 10,
@@ -467,7 +467,7 @@ const data = {
     {
       //_id: "33",
       name: "Abstract Gold Foil Painting",
-      slug: "abstract-gold-foil-painting",
+      productTag: "abstract-gold-foil-painting",
       category: "Wall decor",
       image: "/images/p33.jpg",
       price: 89,
@@ -481,7 +481,7 @@ const data = {
     {
       //_id: "34",
       name: "Origami Lamp Moth White",
-      slug: "origami-lamp-moth-white",
+      productTag: "origami-lamp-moth-white",
       category: "Lighting",
       image: "/images/p34.jpg",
       price: 57,
@@ -495,7 +495,7 @@ const data = {
     {
       //_id: "35",
       name: "Green Wooden Ring",
-      slug: "green-wooden-ring",
+      productTag: "green-wooden-ring",
       category: "Jewelry",
       image: "/images/p35.jpg",
       price: 61,
@@ -509,7 +509,7 @@ const data = {
     {
       //_id: "36",
       name: "Keulse Pot Vase",
-      slug: "keulse-pot-vase",
+      productTag: "keulse-pot-vase",
       category: "Vases",
       image: "/images/p36.jpg",
       price: 16,
@@ -523,7 +523,7 @@ const data = {
     {
       //_id: "37",
       name: "Soft Bright Stuffed Doll",
-      slug: "soft-bright-stuffed-doll",
+      productTag: "soft-bright-stuffed-doll",
       category: "Toys",
       image: "/images/p37.jpg",
       price: 29,
@@ -537,7 +537,7 @@ const data = {
     {
       //_id: "38",
       name: "St. Patrick's Day Dog Hat",
-      slug: "st-patricks-day-dog-hat",
+      productTag: "st-patricks-day-dog-hat",
       category: "Pet Supplies",
       image: "/images/p38.jpg",
       price: 26,
@@ -551,7 +551,7 @@ const data = {
     {
       //_id: "39",
       name: "French Bulldog Sweater",
-      slug: "french-bulldog-sweater",
+      productTag: "french-bulldog-sweater",
       category: "Pet Supplies",
       image: "/images/p39.jpg",
       price: 27,
@@ -565,7 +565,7 @@ const data = {
     {
       //_id: "40",
       name: "Red Flower Abstract Painting",
-      slug: "red-flower-abstract-painting",
+      productTag: "red-flower-abstract-painting",
       category: "Wall decor",
       image: "/images/p40.jpg",
       price: 360,
@@ -579,7 +579,7 @@ const data = {
     {
       //_id: "41",
       name: "Just Hemp Rope Dog Leash",
-      slug: "just-hemp-rope-dog-leash",
+      productTag: "just-hemp-rope-dog-leash",
       category: "Pet Supplies",
       image: "/images/p41.jpg",
       price: 27,
@@ -593,7 +593,7 @@ const data = {
     {
       //_id: "42",
       name: "Amethyst Flower Earrings",
-      slug: "amethyst-flower-earrings",
+      productTag: "amethyst-flower-earrings",
       category: "Jewelry",
       image: "/images/p42.jpg",
       price: 39,
@@ -607,7 +607,7 @@ const data = {
     {
       //_id: "43",
       name: "Driftwood Floor Lamp",
-      slug: "driftwood-floor-lamp",
+      productTag: "driftwood-floor-lamp",
       category: "Lighting",
       image: "/images/p43.jpg",
       price: 435,
@@ -621,7 +621,7 @@ const data = {
     {
       //_id: "44",
       name: "Vintage Tonala Vase",
-      slug: "vintage-tonala-vase",
+      productTag: "vintage-tonala-vase",
       category: "Vases",
       image: "/images/p44.jpg",
       price: 26,
@@ -635,7 +635,7 @@ const data = {
     {
       //_id: "45",
       name: "Spring Friends Pattern",
-      slug: "spring-friends-pattern",
+      productTag: "spring-friends-pattern",
       category: "Toys",
       image: "/images/p45.jpg",
       price: 15,
@@ -649,7 +649,7 @@ const data = {
     {
       //_id: "46",
       name: "Tea Cosy 4-6 Cup",
-      slug: "tea-cosy-4-6-cup",
+      productTag: "tea-cosy-4-6-cup",
       category: "Fiber Arts",
       image: "/images/p46.jpg",
       price: 17,
@@ -663,7 +663,7 @@ const data = {
     {
       //_id: "47",
       name: "Needle Felted Goldfinch",
-      slug: "needle-felted-goldfinch",
+      productTag: "needle-felted-goldfinch",
       category: "Fiber Arts",
       image: "/images/p47.jpg",
       price: 25,
@@ -677,7 +677,7 @@ const data = {
     {
       //_id: "48",
       name: "Ancient Islamic Painting",
-      slug: "ancient-islamic-painting",
+      productTag: "ancient-islamic-painting",
       category: "Wall decor",
       image: "/images/p48.jpg",
       price: 12,
@@ -691,7 +691,7 @@ const data = {
     {
       //_id: "49",
       name: "Pumpkin Cat Hat",
-      slug: "pumpkin-cat-hat",
+      productTag: "pumpkin-cat-hat",
       category: "Pet Supplies",
       image: "/images/p49.jpg",
       price: 13,
@@ -705,7 +705,7 @@ const data = {
     {
       //_id: "50",
       name: "Orange Sphere Lapm",
-      slug: "orange-sphere-lapm",
+      productTag: "orange-sphere-lapm",
       category: "Lighting",
       image: "/images/p50.jpg",
       price: 93,

@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useReducer } from "react";
-import CheckoutSteps from "../components/CheckoutSteps";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
@@ -33,12 +32,14 @@ export default function SubmitOrderPage() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
 
-  const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 123.2345 => 123.23
+  const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
   cart.itemsPrice = round2(
     cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)
   );
-  cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
-  cart.taxPrice = round2(0.15 * cart.itemsPrice);
+  // cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
+  // cart.taxPrice = round2(0.15 * cart.itemsPrice);
+  cart.shippingPrice = 0;
+  cart.taxPrice = 0;
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
   const submitOrderAction = async () => {
@@ -79,105 +80,86 @@ export default function SubmitOrderPage() {
 
   return (
     <div className="submit-order-page-main-section">
-      <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
       <h1 className="submit-order-page-title">Submit order</h1>
       <Row>
-        <Col md={8}>
+        <Row md={8}>
           <Card className="mb-3">
             <Card.Body className="submit-order-body">
-              <h3>Shipping</h3>
-              <div>
+              <h3 className="text-center">Devilery info</h3>
+              <div className="devilery-container-order">
                 {" "}
-                <strong>Name:</strong> {cart.shippingAddress.fullName} <br />
-                <strong>Address: </strong> {cart.shippingAddress.address},
-                {cart.shippingAddress.city}, {cart.shippingAddress.postalCode},
-                {cart.shippingAddress.country}
-              </div>
-              <div>
-                <Link className="edit-btn" to="/shipping">
-                  Edit
-                </Link>
+                <span>Name: {cart.shippingAddress.fullName}</span>
+                <span>Address: {cart.shippingAddress.address}</span>
+                <span>City: {cart.shippingAddress.city}</span>
+                <span>County: {cart.shippingAddress.country}</span>
+                <span>Postal: {cart.shippingAddress.postalCode}</span>
               </div>
               <div className="line-horizontal"></div>
-              <h3>Payment</h3>
+              <h3 className="text-center">Payment info</h3>
               <div>
-                <strong>Method:</strong> {cart.paymentMethod}
-              </div>
-              <div>
-                <Link className="edit-btn" to="/payment">
-                  Edit
-                </Link>
+                <span>Method: {cart.paymentMethod}</span>
               </div>
               <div className="line-horizontal"></div>
-              <h3>Products</h3>
+              <h3 className="text-center">Products</h3>
               <ListGroup variant="flush">
                 {cart.cartItems.map((product) => (
                   <ListGroup.Item key={product._id}>
                     <Row className="align-items-center">
                       <Col md={6}>
                         <img src={product.image} alt={product.name}></img>{" "}
-                        <Link to={`/product/${product.slug}`}>
+                        <Link to={`/product/${product.productTag}`}>
                           {product.name}
                         </Link>
                       </Col>
                       <Col md={3}>
-                        <span>{product.quantity}</span>
+                        <span>{product.quantity}x</span>
                       </Col>
                       <Col md={3}>{product.price} $</Col>
                     </Row>
                   </ListGroup.Item>
                 ))}
               </ListGroup>
-              <div>
-                <Link className="edit-btn" to="/cart">
-                  Edit
-                </Link>
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={4}>
-          <Card>
-            <Card.Body>
-              <Card.Title>Order Information</Card.Title>
-              <ListGroup variant="flush">
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Products cost</Col>
-                    <Col>{cart.itemsPrice.toFixed(2)} $</Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Shipping cost</Col>
-                    <Col>{cart.shippingPrice.toFixed(2)} $</Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Tax cost</Col>
-                    <Col>{cart.taxPrice.toFixed(2)} $</Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Order Total</Col>
-                    <Col>{cart.totalPrice.toFixed(2)} $</Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
+              <Row className="total-confirm-container">
+                <Col>Order Total:</Col>
+                <Col>{cart.totalPrice.toFixed(2)} $</Col>
+                <Col>
                   <div>
-                    <button onClick={submitOrderAction}
-                      disabled={cart.cartItems.length === 0} className="submit-order-btn-confirmation">
+                    <button
+                      onClick={submitOrderAction}
+                      disabled={cart.cartItems.length === 0}
+                      className="submit-order-btn-confirmation"
+                    >
                       Confirm <i className="fas fa-arrow-right"></i>
                     </button>
                   </div>
                   {loading && <h1>Page loading...</h1>}
-                </ListGroup.Item>
-              </ListGroup>
+                </Col>
+              </Row>
             </Card.Body>
           </Card>
-        </Col>
+        </Row>
+        {/* <Row md={4}>
+          <Card>
+            <Card.Body>
+              <Row>
+                <Col>Order Total:</Col>
+                <Col>{cart.totalPrice.toFixed(2)} $</Col>
+                <Col>
+                  <div>
+                    <button
+                      onClick={submitOrderAction}
+                      disabled={cart.cartItems.length === 0}
+                      className="submit-order-btn-confirmation"
+                    >
+                      Confirm <i className="fas fa-arrow-right"></i>
+                    </button>
+                  </div>
+                  {loading && <h1>Page loading...</h1>}
+                </Col>
+              </Row>
+            </Card.Body>
+          </Card>
+        </Row> */}
       </Row>
     </div>
   );

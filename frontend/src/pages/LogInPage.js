@@ -6,29 +6,21 @@ import { Store } from "../Store";
 import { toast } from "react-toastify";
 import { getError } from "../utils";
 
-export default function RegisterPage() {
+export default function LogInPage() {
   const navigate = useNavigate();
   const { search } = useLocation();
-
   const redirectInUrl = new URLSearchParams(search).get("redirect");
   const redirect = redirectInUrl ? redirectInUrl : "/";
 
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
   const formSubmitAction = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      toast.error("Wrong password!");
-      return;
-    }
     try {
-      const { data } = await Axios.post("/api/users/signup", {
-        name,
+      const { data } = await Axios.post("/api/users/signin", {
         email,
         password,
       });
@@ -47,14 +39,9 @@ export default function RegisterPage() {
   }, [navigate, redirect, userInfo]);
 
   return (
-    <div className="container small-container">
-      <h1 className="signin-page-title">Register</h1>
-      <Form className="register-form" onSubmit={formSubmitAction}>
-        <Form.Group controlId="name">
-          <Form.Label>Name</Form.Label>
-          <Form.Control onChange={(e) => setName(e.target.value)} required
-            placeholder="Max Peterson" autoComplete="off"/>
-        </Form.Group>
+    <div className="container small-container login-page-main">
+      <h1 className="login-page-title">LogIn</h1>
+      <Form className="login-form" onSubmit={formSubmitAction}>
         <Form.Group controlId="email">
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -73,17 +60,9 @@ export default function RegisterPage() {
             required
           />
         </Form.Group>
-        <Form.Group controlId="confirmPassword">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <div className="register-btns-container">
-          <button className="submit-register-btn" type="submit">Submit</button>
-          <Link to={`/signin?redirect=${redirect}`}>LogIn</Link>
+        <div className="login-btns-container">
+          <button className="submit-login-btn" type="submit">LogIn</button>
+          <Link to={`/signup?redirect=${redirect}`}>Register</Link>
         </div>
       </Form>
     </div>

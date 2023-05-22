@@ -257,6 +257,7 @@ form textarea {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 40px 0;
 }
 
 .empty-cart-message a i {
@@ -316,7 +317,8 @@ form textarea {
 .all-orders-page-title,
 .payment-page-title,
 .submit-order-page-title,
-.user-page-title {
+.user-page-title,
+.contact-page-title {
   text-align: center;
 }
 
@@ -377,12 +379,13 @@ form textarea {
 
 .submit-order-body .edit-btn {
   color: #4ca549;
-  font-size: 1.4rem;
+  font-size: 1rem;
   border: 2px solid #4ca549;
   padding: 2px 8px;
   text-decoration: none;
   border-radius: 10px;
   margin-top: 20px;
+  /* margin-left: 50rem; */
 }
 
 .submit-order-btn-confirmation {
@@ -400,7 +403,10 @@ form textarea {
   margin-top: 20px;
 }
 
-.user-update-btn, .submit-register-btn, .submit-login-btn, .shipping-btn{
+.user-update-btn,
+.submit-register-btn,
+.submit-login-btn,
+.shipping-btn {
   font-size: 1.2rem;
   background-color: #4ca549;
   border: 1px solid black;
@@ -408,19 +414,30 @@ form textarea {
   margin-top: 20px;
 }
 
-.user-update-form, .register-form, .login-form, .shipping-form{
+.shipping-btn {
+  /* float: right; */
+  width: 100%;
+}
+
+.user-update-form,
+.register-form,
+.login-form,
+.shipping-form {
   line-height: 40px;
 }
 
-.signin-page-title, .login-page-title, .shipping-page-title{
+.signin-page-title,
+.login-page-title,
+.shipping-page-title {
   text-align: center;
 }
 
-.register-btns-container a, .login-btns-container a{
+.register-btns-container a,
+.login-btns-container a {
   margin-left: 20px;
 }
 
-.search-page-main-section a{
+.search-page-main-section a {
   color: #000;
   text-decoration: none;
 }
@@ -432,4 +449,145 @@ form textarea {
   background-color: transparent;
   border: 1px solid red;
   color: red;
+}
+
+.navbar-main {
+  background-color: rgb(0, 0, 0);
+}
+
+.navbar-main .logo-nav {
+  color: white;
+  letter-spacing: 5px;
+}
+
+.search-form .input-search-product {
+  background-color: #ffffff;
+  width: 300px;
+  border: 1px solid white;
+  border-radius: 2px;
+  margin-left: 320px;
+  padding: 5px;
+  color: black;
+}
+
+.navbar-second a {
+  color: white !important;
+}
+.navbar-second a:active {
+  color: white;
+}
+
+.navbar-second a:hover {
+  color: white;
+}
+
+.dropdown-user .show {
+  background-color: black;
+}
+
+.dropdown-user .show a:hover {
+  background-color: #4ca549;
+}
+
+.dropdown-user .active {
+  background-color: #4ca549;
+}
+
+.main-page-title {
+  margin: 40px 0;
+  text-align: center;
+}
+
+.solo-product-name {
+  color: black;
+  text-decoration: none;
+  text-align: center;
+}
+
+.solo-product-name:hover {
+  color: #4ca549;
+}
+
+.solo-product-card {
+  border: 2px solid black;
+  margin: 10px auto;
+  border-radius: 5px;
+  transition: 0.3s ease;
+}
+
+.solo-product-card:hover {
+  box-shadow: 0px 0px 5px black;
+}
+
+.product-big-page, .cart-page-main-section, .shipping-page-main-section, .payment-page-main-section, .all-orders-page-main-section{
+  min-height: 70vh;
+}
+.solo-product-btn-finished {
+  opacity: .5;
+}
+.solo-product-btn-finished,
+.solo-product-btn-available {
+  background-color: rgba(255, 75, 75, 0.507);
+  color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.solo-product-btn-available {
+  background-color: #4ca549;
+}
+
+.card-cart {
+  border: 1px solid black;
+  /* background-color: red; */
+  border-radius: 5px;
+  height: 300px;
+}
+
+.cart-col-products {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.form-payment {
+  display: flex;
+  margin: 60px auto;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.submit-payment-btn {
+  width: 100%;
+}
+
+.devilery-container-order {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  /* background-color: #000; */
+}
+
+.total-confirm-container {
+  background-color: black;
+  color: white;
+  margin: 30px 0;
+  border-radius: 10px;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.orders-col-all-orders {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.login-page-main, .register-page-main {
+  min-height: 70vh;
 }

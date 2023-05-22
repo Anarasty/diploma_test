@@ -12,11 +12,11 @@ import { Store } from "../Store";
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "FETCH_REQUEST":
+    case "GET_DATA_REQUEST":
       return { ...state, loading: true };
-    case "FETCH_SUCCESS":
+    case "GET_DATA_SUCCESS":
       return { ...state, product: action.payload, loading: false };
-    case "FETCH_FAIL":
+    case "GET_DATA_FAIL":
       return { ...state, loading: false, error: action.payload };
     default:
       return state;
@@ -26,7 +26,7 @@ const reducer = (state, action) => {
 function ProductPage() {
   const navigate = useNavigate();
   const params = useParams();
-  const { slug } = params;
+  const { productTag } = params;
 
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
     product: [],
@@ -35,16 +35,16 @@ function ProductPage() {
   });
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: "FETCH_REQUEST" });
+      dispatch({ type: "GET_DATA_REQUEST" });
       try {
-        const result = await axios.get(`/api/products/slug/${slug}`);
-        dispatch({ type: "FETCH_SUCCESS", payload: result.data });
+        const result = await axios.get(`/api/products/productTag/${productTag}`);
+        dispatch({ type: "GET_DATA_SUCCESS", payload: result.data });
       } catch (err) {
-        dispatch({ type: "FETCH_FAIL", payload: getError(err) });
+        dispatch({ type: "GET_DATA_FAIL", payload: getError(err) });
       }
     };
     fetchData();
-  }, [slug]);
+  }, [productTag]);
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart } = state;
@@ -57,7 +57,7 @@ function ProductPage() {
       return;
     }
     ctxDispatch({
-      type: "CART_ADD_ITEM",
+      type: "ACTION_CART_ADDING",
       payload: { ...product, quantity },
     });
     navigate("/cart");
@@ -68,7 +68,7 @@ function ProductPage() {
   ) : error ? (
     <div className="error-box">{error}</div>
   ) : (
-    <div>
+    <div className="product-big-page">
       <Row>
         <Col md={4}>
           <img className="img-large" src={product.image} alt="product"></img>

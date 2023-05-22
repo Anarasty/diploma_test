@@ -13,11 +13,11 @@ import { toast } from "react-toastify";
 
 function reducer(state, action) {
   switch (action.type) {
-    case "FETCH_REQUEST":
+    case "GET_DATA_REQUEST":
       return { ...state, loading: true, error: "" };
-    case "FETCH_SUCCESS":
+    case "GET_DATA_SUCCESS":
       return { ...state, loading: false, order: action.payload, error: "" };
-    case "FETCH_FAIL":
+    case "GET_DATA_FAIL":
       return { ...state, loading: false, error: action.payload };
     case "PAY_REQUEST":
       return { ...state, loadingPay: true };
@@ -90,13 +90,13 @@ export default function OrderPage() {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        dispatch({ type: "FETCH_REQUEST" });
+        dispatch({ type: "GET_DATA_REQUEST" });
         const { data } = await axios.get(`/api/orders/${orderId}`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
-        dispatch({ type: "FETCH_SUCCESS", payload: data });
+        dispatch({ type: "GET_DATA_SUCCESS", payload: data });
       } catch (err) {
-        dispatch({ type: "FETCH_FAIL", payload: getError(err) });
+        dispatch({ type: "GET_DATA_FAIL", payload: getError(err) });
       }
     };
 
@@ -131,97 +131,62 @@ export default function OrderPage() {
     <div className="error-box">{error}</div>
   ) : (
     <div className="order-page-main-section">
-      <h1 className="my-3">OrderID: {orderId}</h1>
+      <h1 className="my-3 text-center">Order Payment</h1>
       <Row>
-        <Col md={8}>
+        <Row md={8}>
           <Card className="mb-3">
             <Card.Body className="card-order-body">
-              <h3>Shipping</h3>
-              <div>
-                <strong>Name:</strong> {order.shippingAddress.fullName} <br />
-                <strong>Address: </strong> {order.shippingAddress.address},
-                {order.shippingAddress.city}, {order.shippingAddress.postalCode}
-                ,{order.shippingAddress.country}
-              </div>
-              <div>
-                Delivery status:{" "}
-                {order.isDelivered ? (
-                  <span className="status-box-done">
-                    Delivered at {order.deliveredAt.substring(0, 10)}
-                  </span>
-                ) : (
-                  <span className="status-box-undone">Not Delivered</span>
-                )}
+              <h3 className="text-center">Devilery info</h3>
+              <div className="devilery-container-order">
+                {" "}
+                <span>Name: {order.shippingAddress.fullName}</span>
+                <span>Address: {order.shippingAddress.address}</span>
+                <span>City: {order.shippingAddress.city}</span>
+                <span>County: {order.shippingAddress.country}</span>
+                <span>Postal: {order.shippingAddress.postalCode}</span>
               </div>
               <div className="line-horizontal"></div>
-              <h3>Payment</h3>
-              <div>
-                <strong>Method:</strong> {order.paymentMethod}
-              </div>
-              <div>
-                Payment status:{" "}
-                {order.isPaid ? (
-                  <span className="status-box-done">
-                    Paid at {order.paidAt.substring(0, 10)}
-                  </span>
-                ) : (
-                  <span className="status-box-undone">Not Paid</span>
-                )}
+              <h3 className="text-center">Payment</h3>
+              <div className="devilery-container-order">
+                <span>Method: {order.paymentMethod}</span>
+                <span>
+                  {" "}
+                  Payment status:{" "}
+                  {order.isPaid ? (
+                    <span className="status-box-done">
+                      Paid at {order.paidAt.substring(0, 10)}
+                    </span>
+                  ) : (
+                    <span className="status-box-undone">Not Paid</span>
+                  )}
+                </span>
               </div>
               <div className="line-horizontal"></div>
-              <h3>Products</h3>
+              <h3 className="text-center">Products</h3>
               <ListGroup variant="flush">
                 {order.orderItems.map((product) => (
                   <ListGroup.Item key={product._id}>
                     <Row className="align-items-center">
                       <Col md={6}>
                         <img src={product.image} alt={product.name}></img>{" "}
-                        <Link to={`/product/${product.slug}`}>
+                        <Link to={`/product/${product.productTag}`}>
                           {product.name}
                         </Link>
                       </Col>
                       <Col md={3}>
-                        <span>{product.quantity}</span>
+                        <span>{product.quantity}x</span>
                       </Col>
                       <Col md={3}>{product.price} $</Col>
                     </Row>
                   </ListGroup.Item>
                 ))}
               </ListGroup>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={4}>
-          <Card className="mb-3">
-            <Card.Body>
-              <Card.Title>Order Information</Card.Title>
-              <ListGroup variant="flush">
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Products cost</Col>
-                    <Col>{order.itemsPrice.toFixed(2)} $</Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Shipping cost</Col>
-                    <Col>{order.shippingPrice.toFixed(2)} $</Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Tax cost</Col>
-                    <Col>{order.taxPrice.toFixed(2)} $</Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Order Total</Col>
-                    <Col>{order.totalPrice.toFixed(2)} $</Col>
-                  </Row>
-                </ListGroup.Item>
+              <Row className="total-confirm-container">
+                <Col>Order Total:</Col>
+                <Col>{order.totalPrice.toFixed(2)} $</Col>
+                <Col>
                 {!order.isPaid && (
-                  <ListGroup.Item>
+                  <div>
                     {isPending ? (
                       <h1>Page loading...</h1>
                     ) : (
@@ -234,12 +199,13 @@ export default function OrderPage() {
                       </div>
                     )}
                     {loadingPay && <h1>Page loading...</h1>}
-                  </ListGroup.Item>
-                )}
-              </ListGroup>
+                  </div>
+                  )}
+                </Col>
+              </Row>
             </Card.Body>
           </Card>
-        </Col>
+        </Row>
       </Row>
     </div>
   );

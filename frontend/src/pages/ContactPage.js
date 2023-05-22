@@ -21,7 +21,7 @@ const ContactPage = () => {
     <div>
       <div className="contact-box">
         <Row>
-          <h1>Contact Us</h1>
+          <h1 className="contact-page-title">Contact Us</h1>
           <ToastContainer position="bottom-center" limit={1} />
           <form className="contact-form" onSubmit={sendEmail}>
             <label htmlFor="emailFrom">Email:</label>

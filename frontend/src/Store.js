@@ -20,8 +20,7 @@ const initialState = {
 };
 function reducer(state, action) {
   switch (action.type) {
-    case "CART_ADD_ITEM":
-      //add cart
+    case "ACTION_CART_ADDING":
       const newItem = action.payload;
       const existItem = state.cart.cartItems.find(
         (item) => item._id === newItem._id
@@ -34,7 +33,7 @@ function reducer(state, action) {
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
       return { ...state, cart: { ...state.cart, cartItems } };
 
-    case "CART_REMOVE_ITEM": {
+    case "ACTION_CART_REMOVING": {
       const cartItems = state.cart.cartItems.filter(
         (item) => item._id !== action.payload._id
       );
@@ -54,7 +53,7 @@ function reducer(state, action) {
           paymentMethod: "",
         },
       };
-    case "SAVE_SHIPPING_ADDRESS":
+    case "ACTION_REMEBER_ADDRESS":
       return {
         ...state,
         cart: {

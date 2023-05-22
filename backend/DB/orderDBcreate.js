@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
-const orderSchema = new mongoose.Schema(
+const mongoOrderModel = new mongoose.Schema(
   {
     orderItems: [
       {
-        slug: { type: String, required: true },
+        productTag: { type: String, required: true },
         name: { type: String, required: true },
         quantity: { type: Number, required: true },
         image: { type: String, required: true },
@@ -45,5 +45,5 @@ const orderSchema = new mongoose.Schema(
   }
 );
 
-const Order = mongoose.model("Order", orderSchema);
+const Order = mongoose.model("Order", mongoOrderModel);
 export default Order;

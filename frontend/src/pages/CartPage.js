@@ -17,17 +17,17 @@ export default function CartPage() {
   const handleUpdateCartProducts = async (product, quantity) => {
     const { data } = await axios.get(`/api/products/${product._id}`);
     if (data.countInStock < quantity) {
-      window.alert("Sorry. Product is out of stock");
+      window.alert("Product finished.");
       return;
     }
     ctxDispatch({
-      type: "CART_ADD_ITEM",
+      type: "ACTION_CART_ADDING",
       payload: { ...product, quantity },
     });
   };
 
   const handleRemoveCartProduct = (product) => {
-    ctxDispatch({ type: "CART_REMOVE_ITEM", payload: product });
+    ctxDispatch({ type: "ACTION_CART_REMOVING", payload: product });
   };
 
   const handleCheckout = () => {
@@ -38,7 +38,42 @@ export default function CartPage() {
     <div className="cart-page-main-section">
       <h1 className="cart-page-title">Your cart</h1>
       <Row>
-        <Col md={8}>
+      <Col md={4}>
+          <Card className="card-cart">
+            <Card.Body>
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <h4>
+                    Products amount:{" "}
+                    {cartItems.reduce(
+                      (productAmound, product) =>
+                        productAmound + product.quantity,
+                      0
+                    )}{" "}
+                    products
+                  </h4>
+                  <h4>
+                    Total price:{" "}
+                    {cartItems.reduce(
+                      (productAmound, product) =>
+                        productAmound + product.price * product.quantity,
+                      0
+                    )}
+                    $
+                  </h4>
+                  <button
+                  className="checkout-btn-cart"
+                    onClick={handleCheckout}
+                    disabled={cartItems.length === 0}
+                  >
+                    Delivery <i className="fas fa-arrow-right"></i>
+                  </button>
+                </ListGroup.Item>
+              </ListGroup>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={8} className="cart-col-products">
           {cartItems.length === 0 ? (
             <div className="empty-cart-message">
               <Link to="/">
@@ -99,41 +134,6 @@ export default function CartPage() {
               ))}
             </ListGroup>
           )}
-        </Col>
-        <Col md={4}>
-          <Card>
-            <Card.Body>
-              <ListGroup variant="flush">
-                <ListGroup.Item>
-                  <h4>
-                    Products amount:{" "}
-                    {cartItems.reduce(
-                      (productAmound, product) =>
-                        productAmound + product.quantity,
-                      0
-                    )}{" "}
-                    products
-                  </h4>
-                  <h4>
-                    Total price:{" "}
-                    {cartItems.reduce(
-                      (productAmound, product) =>
-                        productAmound + product.price * product.quantity,
-                      0
-                    )}
-                    $
-                  </h4>
-                  <button
-                  className="checkout-btn-cart"
-                    onClick={handleCheckout}
-                    disabled={cartItems.length === 0}
-                  >
-                    Shipping <i className="fas fa-arrow-right"></i>
-                  </button>
-                </ListGroup.Item>
-              </ListGroup>
-            </Card.Body>
-          </Card>
         </Col>
       </Row>
     </div>

@@ -12,9 +12,9 @@ import axios from "axios";
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "FETCH_REQUEST":
+    case "GET_DATA_REQUEST":
       return { ...state, loading: true };
-    case "FETCH_SUCCESS":
+    case "GET_DATA_SUCCESS":
       return {
         ...state,
         products: action.payload.products,
@@ -23,7 +23,7 @@ const reducer = (state, action) => {
         countProducts: action.payload.countProducts,
         loading: false,
       };
-    case "FETCH_FAIL":
+    case "GET_DATA_FAIL":
       return { ...state, loading: false, error: action.payload };
 
     default:
@@ -99,10 +99,10 @@ export default function SearchPage() {
             order: order,
           },
         });
-        dispatch({ type: "FETCH_SUCCESS", payload: data });
+        dispatch({ type: "GET_DATA_SUCCESS", payload: data });
       } catch (err) {
         dispatch({
-          type: "FETCH_FAIL",
+          type: "GET_DATA_FAIL",
           payload: getError(error),
         });
       }
