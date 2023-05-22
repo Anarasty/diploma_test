@@ -1,14 +1,18 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getError } from "../utils";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Rating from "../components/Rating";
 import Product from "../components/Product";
 import Button from "react-bootstrap/Button";
 import LinkContainer from "react-router-bootstrap/LinkContainer";
 import axios from "axios";
+
+const getError = (error) => {
+  return error.response && error.response.data.message
+    ? error.response.data.message
+    : error.message;
+};
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -33,38 +37,20 @@ const reducer = (state, action) => {
 
 const prices = [
   {
-    name: "$1 to $50",
-    value: "1-50",
+    name: "1 - 30",
+    value: "1-30",
   },
   {
-    name: "$51 to $200",
-    value: "51-200",
+    name: "30 - 100",
+    value: "30-100",
   },
   {
-    name: "$201 to $1000",
-    value: "201-1000",
+    name: "100 - 400",
+    value: "101-400",
   },
-];
-
-export const productRatings = [
   {
-    name: "4stars & up",
-    rating: 4,
-  },
-
-  {
-    name: "3stars & up",
-    rating: 3,
-  },
-
-  {
-    name: "2stars & up",
-    rating: 2,
-  },
-
-  {
-    name: "1stars & up",
-    rating: 1,
+    name: "400+",
+    value: "401-2000",
   },
 ];
 
@@ -149,7 +135,7 @@ export default function SearchPage() {
             <ul>
               <li>
                 <Link
-                  className={"all" === category ? "text-bold" : ""}
+                  className={"all" === category ? "text-bold active-filter" : ""}
                   to={getFilterUrl({ category: "all" })}
                 >
                   Any
@@ -158,7 +144,7 @@ export default function SearchPage() {
               {categories.map((categoryName) => (
                 <li key={categoryName}>
                   <Link
-                    className={categoryName === category ? "text-bold" : ""}
+                    className={categoryName === category ? "text-bold active-filter" : ""}
                     to={getFilterUrl({ category: categoryName })}
                   >
                     {categoryName}
@@ -172,7 +158,7 @@ export default function SearchPage() {
             <ul>
               <li>
                 <Link
-                  className={"all" === price ? "text-bold" : ""}
+                  className={"all" === price ? "text-bold active-filter" : ""}
                   to={getFilterUrl({ price: "all" })}
                 >
                   Any
@@ -182,35 +168,12 @@ export default function SearchPage() {
                 <li key={pricesFilter.value}>
                   <Link
                     to={getFilterUrl({ price: pricesFilter.value })}
-                    className={pricesFilter.value === price ? "text-bold" : ""}
+                    className={pricesFilter.value === price ? "text-bold active-filter" : ""}
                   >
                     {pricesFilter.name}
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
-          <div>
-            <h3>Reviews</h3>
-            <ul>
-              {productRatings.map((ratingFilter) => (
-                <li key={ratingFilter.name}>
-                  <Link
-                    to={getFilterUrl({ rating: ratingFilter.rating })}
-                    className={`${ratingFilter.rating}` === `${rating}` ? "text-bold" : ""}
-                  >
-                    <Rating caption={" & up"} rating={ratingFilter.rating}></Rating>
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <Link
-                  to={getFilterUrl({ rating: "all" })}
-                  className={rating === "all" ? "text-bold" : ""}
-                >
-                  <Rating caption={" & up"} rating={0}></Rating>
-                </Link>
-              </li>
             </ul>
           </div>
         </Col>

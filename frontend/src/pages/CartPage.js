@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Store } from "../Store";
+import { MainLogic } from "../MainLogic";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -9,11 +9,21 @@ import axios from "axios";
 
 export default function CartPage() {
   const navigate = useNavigate();
-  const { state, dispatch: ctxDispatch } = useContext(Store);
+
+  //extracts the 'cartItems' value from the 'cart' object
+  // in the 'state' obtained from the 'MainLogic' context,
+  // and assigns it to the variable 'cartItems', while also assigning the 'dispatch' function
+  // from the 'MainLogic' context to the variable 'ctxDispatch'
+  const { state, dispatch: ctxDispatch } = useContext(MainLogic);
   const {
-    cart: { cartItems }, 
+    cart: { cartItems },
   } = state;
 
+  // asynchronous function that handles updating the cart products:
+  // it makes a request to retrieve information about a specific product using its ID,
+  // checks if the available stock is sufficient for the desired quantity,
+  // displays an alert if the product is out of stock, and finally dispatches
+  // an action to add the product with the specified quantity to the cart.
   const handleUpdateCartProducts = async (product, quantity) => {
     const { data } = await axios.get(`/api/products/${product._id}`);
     if (data.countInStock < quantity) {
@@ -26,6 +36,9 @@ export default function CartPage() {
     });
   };
 
+  // function that removes a specific
+  // product from the cart by dispatching an action with the type "ACTION_CART_REMOVING"
+  // and the product as the payload.
   const handleRemoveCartProduct = (product) => {
     ctxDispatch({ type: "ACTION_CART_REMOVING", payload: product });
   };
@@ -38,7 +51,7 @@ export default function CartPage() {
     <div className="cart-page-main-section">
       <h1 className="cart-page-title">Your cart</h1>
       <Row>
-      <Col md={4}>
+        <Col md={4}>
           <Card className="card-cart">
             <Card.Body>
               <ListGroup variant="flush">
@@ -62,7 +75,7 @@ export default function CartPage() {
                     $
                   </h4>
                   <button
-                  className="checkout-btn-cart"
+                    className="checkout-btn-cart"
                     onClick={handleCheckout}
                     disabled={cartItems.length === 0}
                   >

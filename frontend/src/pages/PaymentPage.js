@@ -1,11 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
-import { Store } from "../Store";
+import { MainLogic } from "../MainLogic";
 
 export default function PaymentPage() {
+
+  // Import the navigate function from the useNavigate hook,
+  // accesses the state and ctxDispatch variables from the MainLogic
+  // context using the useContext hook, and extracts the shippingAddress
+  // and paymentMethod values from the cart object within the state.
   const navigate = useNavigate();
-  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { state, dispatch: ctxDispatch } = useContext(MainLogic);
   const {
     cart: { shippingAddress, paymentMethod },
   } = state;
@@ -20,6 +25,11 @@ export default function PaymentPage() {
     }
   }, [shippingAddress, navigate]);
 
+  // Function that handles form submission by preventing the default
+  // form submission behavior, dispatching an action to
+  // save the selected payment method to the context, storing the
+  // payment method in local storage, and navigating the user
+  // to the API page using the navigate function.
   const formSubmitAction = (e) => {
     e.preventDefault();
     ctxDispatch({ type: "SAVE_PAYMENT_METHOD", payload: paymentMethodName });

@@ -5,6 +5,11 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ContactPage = () => {
+  // Function that sends
+  // an email using the emailjs library by preventing the default
+  // form submission behavior, displaying a success message using
+  // the toast library, and then sending the form data using the specified
+  // email service, template, and sender ID.
   const sendEmail = (e) => {
     e.preventDefault();
     // alert("SEND!");
@@ -17,6 +22,11 @@ const ContactPage = () => {
     );
   };
 
+  // React component that
+  // renders a contact form with an email input, message textarea,
+  // and a submit button, allowing users to send an email message
+  // by triggering the sendEmail function when the form is submitted,
+  // and displaying a toast message at the bottom-center position.
   return (
     <div>
       <div className="contact-box">

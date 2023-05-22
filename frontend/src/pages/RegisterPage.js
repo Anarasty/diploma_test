@@ -2,23 +2,28 @@ import Axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import { useContext, useEffect, useState } from "react";
-import { Store } from "../Store";
+import { MainLogic } from "../MainLogic";
 import { toast } from "react-toastify";
-import { getError } from "../utils";
+
+const getError = (error) => {
+  return error.response && error.response.data.message
+    ? error.response.data.message
+    : error.message;
+};
 
 export default function RegisterPage() {
   const navigate = useNavigate();
   const { search } = useLocation();
 
-  const redirectInUrl = new URLSearchParams(search).get("redirect");
-  const redirect = redirectInUrl ? redirectInUrl : "/";
+  const URLSearchParamsRedirect = new URLSearchParams(search).get("redirect");
+  const URLredirect = URLSearchParamsRedirect ? URLSearchParamsRedirect : "/";
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { state, dispatch: ctxDispatch } = useContext(MainLogic);
   const { userInfo } = state;
   const formSubmitAction = async (e) => {
     e.preventDefault();
@@ -32,9 +37,9 @@ export default function RegisterPage() {
         email,
         password,
       });
-      ctxDispatch({ type: "USER_SIGNIN", payload: data });
+      ctxDispatch({ type: "ACTION_USER_LOGIN", payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate(redirect || "/");
+      navigate(URLredirect || "/");
     } catch (err) {
       toast.error(getError(err));
     }
@@ -42,9 +47,9 @@ export default function RegisterPage() {
 
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect);
+      navigate(URLredirect);
     }
-  }, [navigate, redirect, userInfo]);
+  }, [navigate, URLredirect, userInfo]);
 
   return (
     <div className="container small-container register-page-main">
@@ -83,7 +88,7 @@ export default function RegisterPage() {
         </Form.Group>
         <div className="register-btns-container">
           <button className="submit-register-btn" type="submit">Submit</button>
-          <Link to={`/signin?redirect=${redirect}`}>LogIn</Link>
+          <Link to={`/signin?redirect=${URLredirect}`}>LogIn</Link>
         </div>
       </Form>
     </div>

@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import axios from "axios";
 import logger from "use-reducer-logger";
 import Row from "react-bootstrap/Row";
@@ -45,6 +45,11 @@ function MainPage() {
     loading: true,
     error: "",
   });
+  //This code sets up an effect that triggers once when the 
+  //component mounts, and it fetches product data from the server 
+  //using an asynchronous request, dispatching appropriate actions to 
+  //update the state with loading, success, or failure status 
+  //based on the result of the request.
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "GET_DATA_REQUEST" });

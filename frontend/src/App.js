@@ -11,7 +11,7 @@ import Badge from "react-bootstrap/Badge";
 import Container from "react-bootstrap/Container";
 import { LinkContainer } from "react-router-bootstrap";
 import { useContext, useEffect, useState } from "react";
-import { Store } from "./Store";
+import { MainLogic } from "./MainLogic";
 import CartPage from "./pages/CartPage";
 import LogInPage from "./pages/LogInPage";
 import { toast, ToastContainer } from "react-toastify";
@@ -28,7 +28,7 @@ import SearchPage from "./pages/SearchPage";
 import ContactPage from "./pages/ContactPage";
 
 function App() {
-  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { state, dispatch: ctxDispatch } = useContext(MainLogic);
   const { cart, userInfo } = state;
 
   const signoutHandler = () => {

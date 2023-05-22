@@ -1,8 +1,13 @@
 import { createContext, useReducer } from "react";
 
-export const Store = createContext();
+export const MainLogic = createContext();
 
-const initialState = {
+//This code initializes an object named getAllLocalStates 
+//that retrieves data from the local storage and assigns it to 
+//corresponding properties, such as user information, shipping address, 
+//payment method, and cart items, parsing them from JSON if they exist 
+//or setting default values if they don't.
+const getAllLocalStates = {
   userInfo: localStorage.getItem("userInfo")
     ? JSON.parse(localStorage.getItem("userInfo"))
     : null,
@@ -18,32 +23,38 @@ const initialState = {
       : [],
   },
 };
+
+//This code defines a reducer function that updates the 
+//state based on different action types, such as adding 
+//or removing items from the cart, resetting the cart, 
+//logging in or out the user, remembering the shipping address, 
+//or saving the payment method, and returns the updated state.
 function reducer(state, action) {
   switch (action.type) {
     case "ACTION_CART_ADDING":
-      const newItem = action.payload;
-      const existItem = state.cart.cartItems.find(
-        (item) => item._id === newItem._id
+      const addedProduct = action.payload;
+      const checkExistedProduct = state.cart.cartItems.find(
+        (prod) => prod._id === addedProduct._id
       );
-      const cartItems = existItem
-        ? state.cart.cartItems.map((item) =>
-            item._id === existItem._id ? newItem : item
+      const cartItems = checkExistedProduct
+        ? state.cart.cartItems.map((prod) =>
+            prod._id === checkExistedProduct._id ? addedProduct : prod
           )
-        : [...state.cart.cartItems, newItem];
+        : [...state.cart.cartItems, addedProduct];
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
       return { ...state, cart: { ...state.cart, cartItems } };
 
     case "ACTION_CART_REMOVING": {
       const cartItems = state.cart.cartItems.filter(
-        (item) => item._id !== action.payload._id
+        (prod) => prod._id !== action.payload._id
       );
       return { ...state, cart: { ...state.cart, cartItems } };
     }
-    case "CART_CLEAR":
+    case "ACTION_CART_RESET":
       return { ...state, cart: { ...state.cart, cartItems: [] } };
-    case "USER_SIGNIN":
+    case "ACTION_USER_LOGIN":
       return { ...state, userInfo: action.payload };
-    case "USER_SIGNOUT":
+    case "ACTION_USER_LOGOUT":
       return {
         ...state,
         userInfo: null,
@@ -74,8 +85,10 @@ function reducer(state, action) {
   }
 }
 
-export function StoreProvider(props) {
-  const [state, dispatch] = useReducer(reducer, initialState);
+export function MainLogicProvider(props) {
+  const [state, dispatch] = useReducer(reducer, getAllLocalStates);
   const value = { state, dispatch };
-  return <Store.Provider value={value}>{props.children}</Store.Provider>;
+  return (
+    <MainLogic.Provider value={value}>{props.children}</MainLogic.Provider>
+  );
 }

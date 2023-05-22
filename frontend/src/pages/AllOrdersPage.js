@@ -1,10 +1,15 @@
 import React, { useContext, useEffect, useReducer } from "react";
-import { Store } from "../Store";
+import { MainLogic } from "../MainLogic";
 import { Link } from "react-router-dom";
-import { getError } from "../utils";
 import axios from "axios";
 import Col from "react-bootstrap/esm/Col";
 
+
+const getError = (error) => {
+  return error.response && error.response.data.message
+    ? error.response.data.message
+    : error.message;
+};
 // This code defines a reducer function that updates 
 // the state based on different action types, such as setting 
 // the loading state, updating orders, handling errors, or returning 
@@ -24,12 +29,12 @@ const reducer = (state, action) => {
 
 export default function AllOrdersPage() {
 
-  // This code retrieves user information from the state, 
+  //Retrieves user information from the state, 
   //initializes the reducer with loading and error states, 
   //and triggers an asynchronous request to fetch data (orders) from the 
   //server using the user's authorization token, updating the state 
   //accordingly with loading, success, or error actions.
-  const { state } = useContext(Store);
+  const { state } = useContext(MainLogic);
   const { userInfo } = state;
 
   const [{ loading, error, orders }, dispatch] = useReducer(reducer, {

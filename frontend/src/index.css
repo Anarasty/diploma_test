@@ -591,3 +591,22 @@ form textarea {
 .login-page-main, .register-page-main {
   min-height: 70vh;
 }
+
+.full-product-name {
+  text-align: center;
+}
+
+.row-full-product {
+  margin: 50px 0;
+}
+
+.product-add-cart-btn {
+  margin: 50px 0;
+  font-size: 1.5rem;
+}
+
+.active-filter {
+  border: 1px solid black;
+  padding: 2px;
+  border-radius: 4px;
+}

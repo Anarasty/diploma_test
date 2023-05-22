@@ -1,14 +1,16 @@
 import axios from "axios";
 import { useContext, useEffect, useReducer } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
-import Badge from "react-bootstrap/Badge";
-import ListGroup from "react-bootstrap/ListGroup";
 import Rating from "../components/Rating";
-import { getError } from "../utils";
-import { Store } from "../Store";
+import { MainLogic } from "../MainLogic";
+
+const getError = (error) => {
+  return error.response && error.response.data.message
+    ? error.response.data.message
+    : error.message;
+};
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -33,11 +35,14 @@ function ProductPage() {
     loading: true,
     error: "",
   });
+
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "GET_DATA_REQUEST" });
       try {
-        const result = await axios.get(`/api/products/productTag/${productTag}`);
+        const result = await axios.get(
+          `/api/products/productTag/${productTag}`
+        );
         dispatch({ type: "GET_DATA_SUCCESS", payload: result.data });
       } catch (err) {
         dispatch({ type: "GET_DATA_FAIL", payload: getError(err) });
@@ -46,14 +51,17 @@ function ProductPage() {
     fetchData();
   }, [productTag]);
 
-  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { state, dispatch: ctxDispatch } = useContext(MainLogic);
   const { cart } = state;
-  const addToCartHandler = async () => {
-    const existItem = cart.cartItems.find((x) => x._id === product._id);
-    const quantity = existItem ? existItem.quantity + 1 : 1;
+
+  const handleAddToCart = async () => {
+    const checkExistedProduct = cart.cartItems.find(
+      (existedProd) => existedProd._id === product._id
+    );
+    const quantity = checkExistedProduct ? checkExistedProduct.quantity + 1 : 1;
     const { data } = await axios.get(`/api/products/${product._id}`);
     if (data.countInStock < quantity) {
-      window.alert("Sorry. Product is out of stock");
+      window.alert("Product Finished.");
       return;
     }
     ctxDispatch({
@@ -69,66 +77,39 @@ function ProductPage() {
     <div className="error-box">{error}</div>
   ) : (
     <div className="product-big-page">
-      <Row>
+      <Row className="row-full-product">
         <Col md={4}>
           <img className="img-large" src={product.image} alt="product"></img>
+          <h1 className="full-product-name">{product.name}</h1>
         </Col>
-        <Col md={5}>
-          <Card>
-            <Card.Body>
-              <ListGroup variant="flush">
-                <ListGroup.Item>
-                  <h1>{product.name}</h1>
-                  Description:
-                  <p>{product.description}</p>
-                  <Rating
-                    rating={product.rating}
-                    numReviews={product.numReviews}
-                  ></Rating>
-                </ListGroup.Item>
-              </ListGroup>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={3}>
-          <Card>
-            <Card.Body>
-              <ListGroup variant="flush">
-                <ListGroup.Item className="list-group-info-product">
-                  <Row>
-                    <Col>Price:</Col>
-                    <Col>{product.price} $</Col>
-                  </Row>
-                  <Row>
-                    <Col>Status:</Col>
-                    <Col>
-                      {product.countInStock > 0 ? (
-                        <Badge bg="success">In Stock</Badge>
-                      ) : (
-                        <Badge bg="danger">Sold</Badge>
-                      )}
-                    </Col>
-                  </Row>
-                  {product.countInStock > 0 ? (
-                    <div>
-                      <button
-                        className="product-add-cart-btn"
-                        onClick={addToCartHandler}
-                      >
-                        Add to cart
-                      </button>
-                    </div>
-                  ) : (
-                    <div>
-                      <button className="product-add-cart-btn" disabled>
-                        Add to cart
-                      </button>
-                    </div>
-                  )}
-                </ListGroup.Item>
-              </ListGroup>
-            </Card.Body>
-          </Card>
+        <Col md={7}>
+          <h4>
+            <strong>Price:</strong> {product.price} $
+          </h4>
+          Description:
+          <p>{product.description}</p>
+          <h5>Seller: {product.brand}</h5>
+          <h5>Product category: {product.category}</h5>
+          <Rating
+            rating={product.rating}
+            numReviews={product.numReviews}
+          ></Rating>
+          {product.countInStock > 0 ? (
+            <div>
+              <button
+                className="product-add-cart-btn"
+                onClick={handleAddToCart}
+              >
+                Add to cart
+              </button>
+            </div>
+          ) : (
+            <div>
+              <button className="product-add-cart-btn" disabled>
+                Add to cart
+              </button>
+            </div>
+          )}
         </Col>
       </Row>
     </div>

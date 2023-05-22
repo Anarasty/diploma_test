@@ -1,9 +1,14 @@
 import React, { useContext, useReducer, useState } from 'react';
 import Form from 'react-bootstrap/Form';
-import { Store } from '../Store';
+import { MainLogic } from '../MainLogic';
 import { toast } from 'react-toastify';
-import { getError } from '../utils';
 import axios from 'axios';
+
+const getError = (error) => {
+  return error.response && error.response.data.message
+    ? error.response.data.message
+    : error.message;
+};
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -20,7 +25,7 @@ const reducer = (state, action) => {
 };
 
 export default function UserProfilePage() {
-  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { state, dispatch: ctxDispatch } = useContext(MainLogic);
   const { userInfo } = state;
   const [name, setName] = useState(userInfo.name);
   const [email, setEmail] = useState(userInfo.email);
@@ -48,7 +53,7 @@ export default function UserProfilePage() {
       dispatch({
         type: 'UPDATE_SUCCESS',
       });
-      ctxDispatch({ type: 'USER_SIGNIN', payload: data });
+      ctxDispatch({ type: 'ACTION_USER_LOGIN', payload: data });
       localStorage.setItem('userInfo', JSON.stringify(data));
       toast.success('INFO UPDATED!');
     } catch (err) {

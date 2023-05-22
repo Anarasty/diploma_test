@@ -6,18 +6,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { StoreProvider } from "./Store";
+import { MainLogicProvider } from "./MainLogic";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <StoreProvider>
+    <MainLogicProvider>
       <HelmetProvider>
         <PayPalScriptProvider deferLoading={true}>
           <App />
         </PayPalScriptProvider>
       </HelmetProvider>
-    </StoreProvider>
+    </MainLogicProvider>
   </React.StrictMode>
 );
 

@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
-import { Store } from "../Store";
+import { MainLogic } from "../MainLogic";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 
 export default function ShippingPage() {
   const navigate = useNavigate();
-  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { state, dispatch: ctxDispatch } = useContext(MainLogic);
   const {
     userInfo,
     cart: { shippingAddress },

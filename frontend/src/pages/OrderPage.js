@@ -6,10 +6,15 @@ import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
-import { Store } from "../Store";
-import { getError } from "../utils";
+import { MainLogic } from "../MainLogic";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { toast } from "react-toastify";
+
+const getError = (error) => {
+  return error.response && error.response.data.message
+    ? error.response.data.message
+    : error.message;
+};
 
 function reducer(state, action) {
   switch (action.type) {
@@ -19,20 +24,20 @@ function reducer(state, action) {
       return { ...state, loading: false, order: action.payload, error: "" };
     case "GET_DATA_FAIL":
       return { ...state, loading: false, error: action.payload };
-    case "PAY_REQUEST":
+    case "GET_PAY_REQUEST":
       return { ...state, loadingPay: true };
-    case "PAY_SUCCESS":
+    case "GET_PAY_SUCCESS":
       return { ...state, loadingPay: false, successPay: true };
-    case "PAY_FAIL":
+    case "GET_PAY_FAIL":
       return { ...state, loadingPay: false };
-    case "PAY_RESET":
+    case "GET_PAY_RESET":
       return { ...state, loadingPay: false, successPay: false };
     default:
       return state;
   }
 }
 export default function OrderPage() {
-  const { state } = useContext(Store);
+  const { state } = useContext(MainLogic);
   const { userInfo } = state;
 
   const params = useParams();
@@ -67,7 +72,7 @@ export default function OrderPage() {
   function onApprove(data, actions) {
     return actions.order.capture().then(async function (details) {
       try {
-        dispatch({ type: "PAY_REQUEST" });
+        dispatch({ type: "GET_PAY_REQUEST" });
         const { data } = await axios.put(
           `/api/orders/${order._id}/pay`,
           details,
@@ -75,10 +80,10 @@ export default function OrderPage() {
             headers: { authorization: `Bearer ${userInfo.token}` },
           }
         );
-        dispatch({ type: "PAY_SUCCESS", payload: data });
+        dispatch({ type: "GET_PAY_SUCCESS", payload: data });
         toast.success("Order is paid");
       } catch (err) {
-        dispatch({ type: "PAY_FAIL", payload: getError(err) });
+        dispatch({ type: "GET_PAY_FAIL", payload: getError(err) });
         toast.error(getError(err));
       }
     });
@@ -106,7 +111,7 @@ export default function OrderPage() {
     if (!order._id || successPay || (order._id && order._id !== orderId)) {
       fetchOrder();
       if (successPay) {
-        dispatch({ type: "PAY_RESET" });
+        dispatch({ type: "GET_PAY_RESET" });
       }
     } else {
       const loadPaypalScript = async () => {
