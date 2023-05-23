@@ -10,6 +10,13 @@ const getError = (error) => {
     : error.message;
 };
 
+//Defines a reducer function that updates 
+//the state based on different action types, such 
+//as setting the loadingUpdate state when performing 
+//an update operation, updating the state with 
+//loadingUpdate status upon successful or failed 
+//update, and returning the current state if the 
+//action type is not recognized.
 const reducer = (state, action) => {
   switch (action.type) {
     case 'UPDATE_REQUEST':
@@ -27,6 +34,7 @@ const reducer = (state, action) => {
 export default function UserProfilePage() {
   const { state, dispatch: ctxDispatch } = useContext(MainLogic);
   const { userInfo } = state;
+
   const [name, setName] = useState(userInfo.name);
   const [email, setEmail] = useState(userInfo.email);
   const [password, setPassword] = useState('');
@@ -36,6 +44,13 @@ export default function UserProfilePage() {
     loadingUpdate: false,
   });
 
+  //This code defines a function named formSubmitAction 
+  //that sends a PUT request to update user data with 
+  //the provided name, email, and password, dispatches 
+  //actions to update the state with success status and 
+  //update the user login information, stores the updated 
+  //user information in local storage, and displays success 
+  //or error toast messages accordingly.
   const formSubmitAction = async (e) => {
     e.preventDefault();
     try {
@@ -55,7 +70,6 @@ export default function UserProfilePage() {
       });
       ctxDispatch({ type: 'ACTION_USER_LOGIN', payload: data });
       localStorage.setItem('userInfo', JSON.stringify(data));
-      toast.success('INFO UPDATED!');
     } catch (err) {
       dispatch({
         type: 'GET_DATA_FAIL',
@@ -65,7 +79,7 @@ export default function UserProfilePage() {
   };
 
   return (
-    <div className="container small-container">
+    <div className="container small-container edit-user-section">
       <h1 className="user-page-title">Edit profile</h1>
       <form className='user-update-form' onSubmit={formSubmitAction}>
         <Form.Group controlId="name">

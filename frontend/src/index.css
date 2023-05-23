@@ -519,11 +519,15 @@ form textarea {
   box-shadow: 0px 0px 5px black;
 }
 
-.product-big-page, .cart-page-main-section, .shipping-page-main-section, .payment-page-main-section, .all-orders-page-main-section{
+.product-big-page,
+.cart-page-main-section,
+.shipping-page-main-section,
+.payment-page-main-section,
+.all-orders-page-main-section {
   min-height: 70vh;
 }
 .solo-product-btn-finished {
-  opacity: .5;
+  opacity: 0.5;
 }
 .solo-product-btn-finished,
 .solo-product-btn-available {
@@ -588,7 +592,8 @@ form textarea {
   margin: 20px 0;
 }
 
-.login-page-main, .register-page-main {
+.login-page-main,
+.register-page-main {
   min-height: 70vh;
 }
 
@@ -609,4 +614,24 @@ form textarea {
   border: 1px solid black;
   padding: 2px;
   border-radius: 4px;
+}
+
+.edit-user-section {
+  min-height: 70vh;
+}
+.pag-container {
+  /* background-color: #000000; */
+}
+#pagination-btn {
+  margin-right: 20px;
+  padding: 0 10px;
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+}
+#pagination-btn.text-bold {
+  background-color: #4ca549;
+  color: white;
 }

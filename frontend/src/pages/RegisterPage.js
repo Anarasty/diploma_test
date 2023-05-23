@@ -25,6 +25,11 @@ export default function RegisterPage() {
 
   const { state, dispatch: ctxDispatch } = useContext(MainLogic);
   const { userInfo } = state;
+
+  // Handles form submission, validates the
+  // password and confirm password match, signs up a new user,
+  // logs in the user, stores user information, and navigates to a
+  // specified URL or the homepage, displaying error messages when necessary.
   const formSubmitAction = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -45,6 +50,10 @@ export default function RegisterPage() {
     }
   };
 
+  // Utilizes the useEffect hook to check if the userInfo exists,
+  // and if so, it navigates the user to the specified URLredirect.
+  // This effect is triggered whenever the navigate, URLredirect,
+  // or userInfo dependencies change.
   useEffect(() => {
     if (userInfo) {
       navigate(URLredirect);
@@ -57,8 +66,12 @@ export default function RegisterPage() {
       <Form className="register-form" onSubmit={formSubmitAction}>
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
-          <Form.Control onChange={(e) => setName(e.target.value)} required
-            placeholder="Max Peterson" autoComplete="off"/>
+          <Form.Control
+            onChange={(e) => setName(e.target.value)}
+            required
+            placeholder="Max Peterson"
+            autoComplete="off"
+          />
         </Form.Group>
         <Form.Group controlId="email">
           <Form.Label>Email</Form.Label>
@@ -87,7 +100,9 @@ export default function RegisterPage() {
           />
         </Form.Group>
         <div className="register-btns-container">
-          <button className="submit-register-btn" type="submit">Submit</button>
+          <button className="submit-register-btn" type="submit">
+            Submit
+          </button>
           <Link to={`/login?redirect=${URLredirect}`}>LogIn</Link>
         </div>
       </Form>

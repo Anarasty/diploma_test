@@ -23,7 +23,7 @@ const data = {
       category: "Jewelry",
       image: "/images/p1.jpg",
       price: 15,
-      countInStock: 0,
+      countInStock: 3,
       brand: "ZukaJewls",
       rating: 4.5,
       numReviews: 10,

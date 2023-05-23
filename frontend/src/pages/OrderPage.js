@@ -5,10 +5,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
-import { Link } from "react-router-dom";
 import { MainLogic } from "../MainLogic";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const getError = (error) => {
   return error.response && error.response.data.message
@@ -16,6 +16,12 @@ const getError = (error) => {
     : error.message;
 };
 
+// Defines a reducer function that updates 
+//the state based on different action types, 
+//such as setting loading and error states for data 
+//retrieval, updating the state with fetched order data, 
+//handling payment-related actions and returning the current state 
+//if the action type is not recognized.
 function reducer(state, action) {
   switch (action.type) {
     case "GET_DATA_REQUEST":
@@ -36,6 +42,7 @@ function reducer(state, action) {
       return state;
   }
 }
+
 export default function OrderPage() {
   const { state } = useContext(MainLogic);
   const { userInfo } = state;
@@ -55,6 +62,12 @@ export default function OrderPage() {
 
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
+
+  //Defines a function named createOrder 
+  //that receives data and actions as arguments, and 
+  //it uses the actions.order.create method to create a 
+  //new order with the provided purchase_units data (including 
+  //the order total price), and it returns a promise that resolves with the orderID.
   function createOrder(data, actions) {
     return actions.order
       .create({
@@ -69,6 +82,15 @@ export default function OrderPage() {
       });
   }
 
+  //Defines a function named onApprove that 
+  //receives data and actions as arguments, 
+  //and it uses the actions.order.capture method 
+  //to capture the payment for an order, 
+  //dispatches appropriate actions to update the 
+  //state with payment-related status, 
+  //sends an asynchronous PUT request to update the 
+  //order payment status on the server, displays success 
+  //or error messages using the toast library, and returns a promise.
   function onApprove(data, actions) {
     return actions.order.capture().then(async function (details) {
       try {
@@ -81,13 +103,15 @@ export default function OrderPage() {
           }
         );
         dispatch({ type: "GET_PAY_SUCCESS", payload: data });
-        toast.success("Order is paid");
+        // toast.success("Order is paid");
       } catch (err) {
         dispatch({ type: "GET_PAY_FAIL", payload: getError(err) });
         toast.error(getError(err));
       }
     });
   }
+
+
   function onError(err) {
     toast.error(getError(err));
   }

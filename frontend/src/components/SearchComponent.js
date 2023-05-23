@@ -7,6 +7,7 @@ import FormControl from "react-bootstrap/FormControl";
 export default function SearchComponent() {
   const navigate = useNavigate();
   const [searchQuery, seSearchQuery] = useState("");
+  
   const formSubmitAction = (e) => {
     e.preventDefault();
     navigate(searchQuery ? `/filters/?query=${searchQuery}` : "/filters");

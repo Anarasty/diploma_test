@@ -1,5 +1,4 @@
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { MainLogic } from "../MainLogic";
@@ -12,7 +11,13 @@ function Product(props) {
     cart: { cartItems },
   } = state;
 
-  const addToCartHandler = async (item) => {
+  //This code defines a function named handleAddToCart 
+  //that checks if the product already exists in the cart, 
+  //determines the quantity of the item to be added, 
+  //checks if the item is in stock, displays an alert 
+  //if it is out of stock, and dispatches an action 
+  //to add the item to the cart with the specified quantity.
+  const handleAddToCart = async (item) => {
     const checkExistedProduct = cartItems.find((x) => x._id === product._id);
     const quantity = checkExistedProduct ? checkExistedProduct.quantity + 1 : 1;
     const { data } = await axios.get(`/api/productsData/${item._id}`);
@@ -39,7 +44,7 @@ function Product(props) {
         {product.countInStock === 0 ? (
           <button className="solo-product-btn-finished">Finished</button>
         ) : (
-          <button className="solo-product-btn-available" onClick={() => addToCartHandler(product)}>Add cart</button>
+          <button className="solo-product-btn-available" onClick={() => handleAddToCart(product)}>Add cart</button>
         )}
       </Card.Body>
     </Card>

@@ -2,8 +2,8 @@ import axios from "axios";
 import { useContext, useEffect, useReducer } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Rating from "../components/Rating";
+import Col from "react-bootstrap/Col";
 import { MainLogic } from "../MainLogic";
 
 const getError = (error) => {
@@ -12,6 +12,11 @@ const getError = (error) => {
     : error.message;
 };
 
+// Reducer function that handles various actions and updates the state based on the action
+// type, such as setting the loading state to true, updating the product
+// data and setting loading to false on successful data retrieval,
+// setting the loading state to false and storing the error on data
+// retrieval failure, and returning the current state by default.
 const reducer = (state, action) => {
   switch (action.type) {
     case "GET_DATA_REQUEST":
@@ -36,6 +41,11 @@ function ProductPage() {
     error: "",
   });
 
+  // useEffect hook to fetch data by dispatching appropriate
+  // actions and making an API request to retrieve product data
+  // based on the specified productTag, and then updating the state
+  // based on the success or failure of the request. This effect is
+  // triggered whenever the productTag dependency changes.
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "GET_DATA_REQUEST" });
@@ -54,11 +64,19 @@ function ProductPage() {
   const { state, dispatch: ctxDispatch } = useContext(MainLogic);
   const { cart } = state;
 
+  // Function handleAddToCart that adds a product to
+  // the cart by checking if the product already exists in the cart,
+  // determining the quantity accordingly, making an API request to retrieve
+  // the product information, checking if the available stock is sufficient,
+  // dispatching an action to add the product with the specified quantity to the cart
+  // context, and navigating the user to the api page using the navigate function.
   const handleAddToCart = async () => {
     const checkExistedProduct = cart.cartItems.find(
       (existedProd) => existedProd._id === product._id
     );
+
     const quantity = checkExistedProduct ? checkExistedProduct.quantity + 1 : 1;
+
     const { data } = await axios.get(`/api/productsData/${product._id}`);
     if (data.countInStock < quantity) {
       window.alert("Product Finished.");

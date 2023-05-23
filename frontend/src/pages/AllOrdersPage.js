@@ -76,7 +76,7 @@ export default function AllOrdersPage() {
                 <span><Link to={`/order/${order._id}`}>Check order</Link></span>
                 <span>{order.createdAt.substring(0, 10)}</span>
                 <span>{order.totalPrice.toFixed(2)} $</span>
-                <span>{order.paymentChecked ? order.paymentData.substring(0, 10) : "NOT PAID"}</span>
+                <span>Paid: {order.paymentChecked ? order.paymentData.substring(0, 10) : "NOT PAID"}</span>
               </Col>
 
             ))}

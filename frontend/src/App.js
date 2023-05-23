@@ -1,22 +1,20 @@
 // import data from "./data";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import MainPage from "./pages/MainPage";
-import ProductPage from "./pages/ProductPage";
 import Navbar from "react-bootstrap/Navbar";
+import ProductPage from "./pages/ProductPage";
 import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import Badge from "react-bootstrap/Badge";
+import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import { LinkContainer } from "react-router-bootstrap";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { MainLogic } from "./MainLogic";
 import CartPage from "./pages/CartPage";
 import LogInPage from "./pages/LogInPage";
-import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ShippingPage from "./pages/ShippingPage";
+import DeliveyPage from "./pages/DeliveyPage";
 import RegisterPage from "./pages/RegisterPage";
 import PaymentPage from "./pages/PaymentPage";
 import SubmitOrderPage from "./pages/SubmitOrderPage";
@@ -24,8 +22,9 @@ import OrderPage from "./pages/OrderPage";
 import AllOrdersPage from "./pages/AllOrdersPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import SearchComponent from "./components/SearchComponent";
-import SearchPage from "./pages/SearchPage";
+import FiltersPage from "./pages/FiltersPage";
 import ContactPage from "./pages/ContactPage";
+import Badge from "react-bootstrap/Badge";
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(MainLogic);
@@ -42,18 +41,15 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-        <ToastContainer position="bottom-center" limit={1} />
         <header>
           <Navbar
             className="navbar-main"
-            //  bg="dark" variant="dark"
             expand="lg"
           >
             <Container>
               <LinkContainer to="/">
                 <Navbar.Brand className="logo-nav">EasyShop</Navbar.Brand>
               </LinkContainer>
-              {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
               <Navbar.Collapse id="basic-navbar-nav">
                 <SearchComponent />
                 <Nav className="w-100 justify-content-end navbar-second">
@@ -109,13 +105,13 @@ function App() {
               <Route path="/cart" element={<CartPage />} />
               <Route path="/login" element={<LogInPage />} />
               <Route path="/register" element={<RegisterPage />} />
-              <Route path="/filters" element={<SearchPage />} />
+              <Route path="/filters" element={<FiltersPage />} />
               <Route path="/edituser" element={<UserProfilePage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/submitorder" element={<SubmitOrderPage />} />
               <Route path="/order/:id" element={<OrderPage />} />
               <Route path="/allorders" element={<AllOrdersPage />}></Route>
-              <Route path="/delivery" element={<ShippingPage />}></Route>
+              <Route path="/delivery" element={<DeliveyPage />}></Route>
               <Route path="/payment" element={<PaymentPage />}></Route>
               <Route path="/" element={<MainPage />} />
             </Routes>

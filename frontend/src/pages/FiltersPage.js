@@ -2,9 +2,8 @@ import React, { useEffect, useReducer, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Product from "../components/Product";
-import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
 import LinkContainer from "react-router-bootstrap/LinkContainer";
 import axios from "axios";
 
@@ -14,6 +13,13 @@ const getError = (error) => {
     : error.message;
 };
 
+
+//Defines a reducer function that updates 
+//the state based on different action types, such as 
+//setting the loading state, updating product data with 
+//pagination details when data is successfully fetched, 
+//handling failure by setting the error state, and returning 
+//the current state if the action type is not recognized.
 const reducer = (state, action) => {
   switch (action.type) {
     case "GET_DATA_REQUEST":
@@ -54,11 +60,12 @@ const prices = [
   },
 ];
 
-export default function SearchPage() {
+export default function FiltersPage() {
   const navigate = useNavigate();
   const { search } = useLocation();
 
-  const searchParams = new URLSearchParams(search); 
+  const searchParams = new URLSearchParams(search);
+
   const category = searchParams.get("category") || "all";
   const query = searchParams.get("query") || "all";
   const price = searchParams.get("price") || "all";
@@ -66,12 +73,17 @@ export default function SearchPage() {
   const order = searchParams.get("order") || "newest";
   const page = searchParams.get("page") || 1;
 
-  const [{ loading, error, products, pages }, dispatch] =
-    useReducer(reducer, {
-      loading: true,
-      error: "",
-    });
+  const [{ loading, error, products, pages }, dispatch] = useReducer(reducer, {
+    loading: true,
+    error: "",
+  });
 
+  //Sets up an effect that triggers when any of 
+  //the dependencies (category, error, order, page, price, 
+  //query, rating) change, and it fetches product data with 
+  //filters from the server using an asynchronous request, 
+  //dispatching appropriate actions to update the state with 
+  //the fetched data or handle an error if it occurs.
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -96,6 +108,12 @@ export default function SearchPage() {
     fetchData();
   }, [category, error, order, page, price, query, rating]);
 
+  //Initializes a state variable categories 
+  //as an empty array, sets up an effect that triggers 
+  //when dispatch or categories change, and fetches 
+  //categories data from the server using an asynchronous 
+  //request, updating the state with the fetched data or 
+  //displaying an error message using the toast library if there is an error.
   const [categories, setCategories] = useState([]);
   useEffect(
     () => {
@@ -135,7 +153,9 @@ export default function SearchPage() {
             <ul>
               <li>
                 <Link
-                  className={"all" === category ? "text-bold active-filter" : ""}
+                  className={
+                    "all" === category ? "text-bold active-filter" : ""
+                  }
                   to={getFilterUrl({ category: "all" })}
                 >
                   Any
@@ -144,7 +164,9 @@ export default function SearchPage() {
               {categories.map((categoryName) => (
                 <li key={categoryName}>
                   <Link
-                    className={categoryName === category ? "text-bold active-filter" : ""}
+                    className={
+                      categoryName === category ? "text-bold active-filter" : ""
+                    }
                     to={getFilterUrl({ category: categoryName })}
                   >
                     {categoryName}
@@ -168,7 +190,11 @@ export default function SearchPage() {
                 <li key={pricesFilter.value}>
                   <Link
                     to={getFilterUrl({ price: pricesFilter.value })}
-                    className={pricesFilter.value === price ? "text-bold active-filter" : ""}
+                    className={
+                      pricesFilter.value === price
+                        ? "text-bold active-filter"
+                        : ""
+                    }
                   >
                     {pricesFilter.name}
                   </Link>
@@ -186,7 +212,8 @@ export default function SearchPage() {
             <>
               <Row className="justify-content-between mb-3">
                 <Col md={6}>
-                  <div>Filters
+                  <div>
+                    Filters
                     {/* {countProducts === 0 ? "No" : countProducts} Results */}
                     {query !== "all" && " : " + query}
                     {category !== "all" && " : " + category}
@@ -196,7 +223,12 @@ export default function SearchPage() {
                     category !== "all" ||
                     rating !== "all" ||
                     price !== "all" ? (
-                      <button className="reset-filter-btn" onClick={() => navigate("/filters")} ><i className="fa-solid fa-xmark"></i></button>
+                      <button
+                        className="reset-filter-btn"
+                        onClick={() => navigate("/filters")}
+                      >
+                        <i className="fa-solid fa-xmark"></i>
+                      </button>
                     ) : null}
                   </div>
                 </Col>
@@ -213,18 +245,19 @@ export default function SearchPage() {
               </Row>
 
               <div>
-                {[...Array(pages).keys()].map((x) => (
-                  <LinkContainer
-                    key={x + 1}
-                    className="mx-1"
-                    to={getFilterUrl({ page: x + 1 })}
+                {[...Array(pages).keys()].map((pageNum) => (
+                  <LinkContainer className="pag-container"
+                    key={pageNum + 1}
+                    to={getFilterUrl({ page: pageNum + 1 })}
                   >
-                    <Button
-                      className={Number(page) === x + 1 ? "text-bold" : ""}
-                      variant="light"
+                    <button
+                      id="pagination-btn"
+                      className={
+                        Number(page) === pageNum + 1 ? "text-bold" : ""
+                      }
                     >
-                      {x + 1}
-                    </Button>
+                      {pageNum + 1}
+                    </button>
                   </LinkContainer>
                 ))}
               </div>

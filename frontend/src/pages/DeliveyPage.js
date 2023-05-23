@@ -5,25 +5,35 @@ import { MainLogic } from "../MainLogic";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 
-export default function ShippingPage() {
+export default function DeliveyPage() {
   const navigate = useNavigate();
+
   const { state, dispatch: ctxDispatch } = useContext(MainLogic);
+
   const {
     userInfo,
     cart: { deliveryAddress },
   } = state;
+
   const [fullName, setFullName] = useState(deliveryAddress.fullName || "");
   const [address, setAddress] = useState(deliveryAddress.address || "");
   const [city, setCity] = useState(deliveryAddress.city || "");
   const [postalCode, setPostalCode] = useState(
     deliveryAddress.postalCode || ""
   );
+
   useEffect(() => {
     if (!userInfo) {
       navigate("/login?redirect=/delivery");
     }
   }, [userInfo, navigate]);
 
+  //Initializes a state variable country with the value 
+  //from deliveryAddress.country or an empty string, 
+  //defines a form submit action that dispatches an 
+  //action to remember the address with form input values, 
+  //stores the address in local storage, and navigates 
+  //to the "/payment" page when the form is submitted.
   const [country, setCountry] = useState(deliveryAddress.country || "");
   const formSubmitAction = (e) => {
     e.preventDefault();
@@ -49,6 +59,7 @@ export default function ShippingPage() {
     );
     navigate("/payment");
   };
+
   return (
     <div className="shipping-page-main-section">
       <div className="container small-container">

@@ -14,6 +14,12 @@ const getError = (error) => {
     : error.message;
 };
 
+//Defines a reducer function that updates 
+//the state based on different action types, such 
+//as setting the loading state when creating an order, 
+//updating the state with loading status upon successful 
+//or failed order creation, and returning the current 
+//state if the action type is not recognized.
 const reducer = (state, action) => {
   switch (action.type) {
     case "ORDER_CREATE_REQUEST":
@@ -37,6 +43,12 @@ export default function SubmitOrderPage() {
   const { state, dispatch: ctxDispatch } = useContext(MainLogic);
   const { cart, userInfo } = state;
 
+  //This code defines a function named getRoundTwo 
+  //that rounds a number to two decimal places, 
+  //calculates the total price of items in the cart 
+  //by multiplying the quantity and price of each 
+  //item and summing them up, and assigns the calculated 
+  //value to both cart.itemsPrice and cart.totalPrice.
   const getRoundTwo = (number) =>
     Math.round(number * 100 + Number.EPSILON) / 100;
   cart.itemsPrice = getRoundTwo(
@@ -44,6 +56,14 @@ export default function SubmitOrderPage() {
   );
   cart.totalPrice = cart.itemsPrice;
 
+
+  // This code defines a function named submitOrderAction 
+  //that sends a POST request to create an order with the 
+  //data from the cart dispatches actions to 
+  //update the state with loading status and to reset the cart, 
+  //removes the cart items from local storage, and navigates to 
+  //the order page upon successful creation of the order, or 
+  //displays an error message if there is an error.
   const submitOrderAction = async () => {
     try {
       dispatch({ type: "ORDER_CREATE_REQUEST" });
